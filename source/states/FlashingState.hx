@@ -10,8 +10,11 @@ class FlashingState extends MusicBeatState
 {
 	public static var leftState:Bool = false;
 
+	#if mobile
 	var warnTextMobile:FlxText;
+	#else
 	var warnText:FlxText;
+	#end
 	
 	override function create()
 	{
@@ -20,17 +23,19 @@ class FlashingState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
 
+		#if mobile
 		var guhMobile:String = "Hey, watch out!\n
 		This Mod contains some flashing lights!\n
 		Press A to disable them now or go to Options Menu.\n
 		Press B to ignore this message.\n
 		You've been warned!";
-		
+		#else
 		var guh:String = "Hey, watch out!\n
 		This Mod contains some flashing lights!\n
 		Press ENTER to disable them now or go to Options Menu.\n
 		Press ESCAPE to ignore this message.\n
 		You've been warned!";
+		#end
 		
 		controls.isInSubstate = false; // qhar I hate it
 
@@ -63,18 +68,36 @@ class FlashingState extends MusicBeatState
 					ClientPrefs.data.flashing = false;
 					ClientPrefs.saveSettings();
 					FlxG.sound.play(Paths.sound('confirmMenu'));
+					
+					#if mobile
+					FlxFlicker.flicker(warnTextMobile, 1, 0.1, false, true, function(flk:FlxFlicker) {
+						new FlxTimer().start(0.5, function (tmr:FlxTimer) {
+							MusicBeatState.switchState(new TitleState());
+						});
+					});
+					#else
 					FlxFlicker.flicker(warnText, 1, 0.1, false, true, function(flk:FlxFlicker) {
 						new FlxTimer().start(0.5, function (tmr:FlxTimer) {
 							MusicBeatState.switchState(new TitleState());
 						});
 					});
+					#end
 				} else {
 					FlxG.sound.play(Paths.sound('cancelMenu'));
+					
+					#if mobile
+					FlxTween.tween(warnTextMobile, {alpha: 0}, 1, {
+						onComplete: function (twn:FlxTween) {
+							MusicBeatState.switchState(new TitleState());
+						}
+					});
+					#else
 					FlxTween.tween(warnText, {alpha: 0}, 1, {
 						onComplete: function (twn:FlxTween) {
 							MusicBeatState.switchState(new TitleState());
 						}
 					});
+					#end
 				}
 			}
 		}
