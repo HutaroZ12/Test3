@@ -233,6 +233,7 @@ class DialogueEditorState extends MusicBeatState
 	private static var DEFAULT_TEXT:String = "coolswag";
 	private static var DEFAULT_SPEED:Float = 0.05;
 	private static var DEFAULT_BUBBLETYPE:String = "normal";
+	
 	function reloadText(skipDialogue:Bool) {
 		var textToType:String = lineInputText.text;
 		if(textToType == null || textToType.length < 1) textToType = ' ';
@@ -350,17 +351,49 @@ class DialogueEditorState extends MusicBeatState
 
 		if(!blockInput) {
 			ClientPrefs.toggleVolumeKeys(true);
-			if(FlxG.keys.justPressed.SPACE || touchPad.buttonY.justPressed) {
+
+			#if mobile
+			if(FlxG.keys.justPressed.SPACE || touchPad.buttonY.justPressed)
+			{
 				reloadText(false);
 			}
-			if(FlxG.keys.justPressed.ESCAPE || touchPad.buttonB.justPressed) {
+			#else
+			if(FlxG.keys.justPressed.SPACE)
+			{
+				reloadText(false);
+			}
+			#end
+
+			#if mobile
+			if(FlxG.keys.justPressed.ESCAPE || touchPad.buttonB.justPressed)
+			{
 				MusicBeatState.switchState(new states.editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
 				transitioning = true;
 			}
+			#else
+			if(FlxG.keys.justPressed.ESCAPE)
+			{
+				MusicBeatState.switchState(new states.editors.MasterEditorMenu());
+				FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
+				transitioning = true;
+			}
+			#end
+			
 			var negaMult:Array<Int> = [1, -1];
+
+			#if mobile
 			var controlAnim:Array<Bool> = [FlxG.keys.justPressed.W || touchPad.buttonUp.justPressed, FlxG.keys.justPressed.S || touchPad.buttonDown.justPressed];
+			#else
+			var controlAnim:Array<Bool> = [FlxG.keys.justPressed.W, FlxG.keys.justPressed.S];
+			#end
+
+			#if mobile
 			var controlText:Array<Bool> = [FlxG.keys.justPressed.D || touchPad.buttonRight.justPressed, FlxG.keys.justPressed.A || touchPad.buttonLeft.justPressed];
+			#else
+			var controlText:Array<Bool> = [FlxG.keys.justPressed.D, FlxG.keys.justPressed.A];
+			#end
+			
 			for (i in 0...controlAnim.length) {
 				if(controlAnim[i] && character.jsonFile.animations.length > 0) {
 					curAnim -= negaMult[i];
@@ -383,7 +416,9 @@ class DialogueEditorState extends MusicBeatState
 				}
 			}
 
-			if(FlxG.keys.justPressed.O || touchPad.buttonA.justPressed ) {
+			#if mobile
+			if(FlxG.keys.justPressed.O || touchPad.buttonA.justPressed )
+			{
 				dialogueFile.dialogue.remove(dialogueFile.dialogue[curSelected]);
 				if(dialogueFile.dialogue.length < 1) //You deleted everything, dumbo!
 				{
@@ -392,10 +427,28 @@ class DialogueEditorState extends MusicBeatState
 					];
 				}
 				changeText();
-			} else if(FlxG.keys.justPressed.P || touchPad.buttonX.justPressed) {
+			} else if(FlxG.keys.justPressed.P || touchPad.buttonX.justPressed)
+			{
 				dialogueFile.dialogue.insert(curSelected + 1, copyDefaultLine());
 				changeText(1);
 			}
+			#else
+			if(FlxG.keys.justPressed.O)
+			{
+				dialogueFile.dialogue.remove(dialogueFile.dialogue[curSelected]);
+				if(dialogueFile.dialogue.length < 1) //You deleted everything, dumbo!
+				{
+					dialogueFile.dialogue = [
+						copyDefaultLine()
+					];
+				}
+				changeText();
+			} else if(FlxG.keys.justPressed.P)
+			{
+				dialogueFile.dialogue.insert(curSelected + 1, copyDefaultLine());
+				changeText(1);
+			}
+			#end
 		}
 		super.update(elapsed);
 	}
@@ -433,21 +486,25 @@ class DialogueEditorState extends MusicBeatState
 					break;
 				}
 			}
+			
 			character.playAnim(character.jsonFile.animations[curAnim].anim, daText.finishedText);
-			if (controls.mobileC) {
-			animText.text = 'Animation: ' + character.jsonFile.animations[curAnim].anim + ' (' + (curAnim + 1) +' / ' + leLength + ') - Press UP or DOWN to scroll';
+			
+			if (controls.mobileC)
+			{
+				animText.text = 'Animation: ' + character.jsonFile.animations[curAnim].anim + ' (' + (curAnim + 1) +' / ' + leLength + ') - Press UP or DOWN to scroll';
 			} else {
-			animText.text = 'Animation: ' + character.jsonFile.animations[curAnim].anim + ' (' + (curAnim + 1) +' / ' + leLength + ') - Press W or S to scroll';
+				animText.text = 'Animation: ' + character.jsonFile.animations[curAnim].anim + ' (' + (curAnim + 1) +' / ' + leLength + ') - Press W or S to scroll';
 			}
 		} else {
 			animText.text = 'ERROR! NO ANIMATIONS FOUND';
 		}
 		characterAnimSpeed();
 
-		if (controls.mobileC) {
-		selectedText.text = 'Line: (' + (curSelected + 1) + ' / ' + dialogueFile.dialogue.length + ') - Press LEFT or RIGHT to scroll';
+		if (controls.mobileC)
+		{
+			selectedText.text = 'Line: (' + (curSelected + 1) + ' / ' + dialogueFile.dialogue.length + ') - Press LEFT or RIGHT to scroll';
 		} else {
-		selectedText.text = 'Line: (' + (curSelected + 1) + ' / ' + dialogueFile.dialogue.length + ') - Press A or D to scroll';
+			selectedText.text = 'Line: (' + (curSelected + 1) + ' / ' + dialogueFile.dialogue.length + ') - Press A or D to scroll';
 		}
 	}
 
