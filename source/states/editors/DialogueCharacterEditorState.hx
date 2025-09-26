@@ -91,34 +91,34 @@ class DialogueCharacterEditorState extends MusicBeatState
 		hudGroup.add(box);
 
 		if (controls.mobileC) {
-		TIP_TEXT_MAIN =
-	'\nX - Reset Camera
-	\nY - Toggle Speech Bubble
-	\nA - Reset text';
+			TIP_TEXT_MAIN =
+			'\nX - Reset Camera
+			\nY - Toggle Speech Bubble
+			\nA - Reset text';
 	
-	     TIP_TEXT_OFFSET =
-	'\nX - Reset Camera
-	\nY - Toggle Ghosts
-	\nTop Arrow Keys - Move Looping animation offset (Red)
-	\nBottom Arrow Keys - Move Idle/Finished animation offset (Blue)
-	\nHold Z to move offsets 10x faster';
-	} else {
-	    TIP_TEXT_MAIN =
-	'JKLI - Move camera (Hold Shift to move 4x faster)
-	\nQ/E - Zoom out/in
-	\nR - Reset Camera
-	\nH - Toggle Speech Bubble
-	\nSpace - Reset text';
+		     TIP_TEXT_OFFSET =
+			'\nX - Reset Camera
+			\nY - Toggle Ghosts
+			\nTop Arrow Keys - Move Looping animation offset (Red)
+			\nBottom Arrow Keys - Move Idle/Finished animation offset (Blue)
+			\nHold Z to move offsets 10x faster';
+		} else {
+		    TIP_TEXT_MAIN =
+			'JKLI - Move camera (Hold Shift to move 4x faster)
+			\nQ/E - Zoom out/in
+			\nR - Reset Camera
+			\nH - Toggle Speech Bubble
+			\nSpace - Reset text';
 	
-	     TIP_TEXT_OFFSET =
-	'JKLI - Move camera (Hold Shift to move 4x faster)
-	\nQ/E - Zoom out/in
-	\nR - Reset Camera
-	\nH - Toggle Ghosts
-	\nWASD - Move Looping animation offset (Red)
-	\nArrow Keys - Move Idle/Finished animation offset (Blue)
-	\nHold Shift to move offsets 10x faster';
-	     }
+	  		TIP_TEXT_OFFSET =
+			'JKLI - Move camera (Hold Shift to move 4x faster)
+			\nQ/E - Zoom out/in
+			\nR - Reset Camera
+			\nH - Toggle Ghosts
+			\nWASD - Move Looping animation offset (Red)
+			\nArrow Keys - Move Idle/Finished animation offset (Blue)
+			\nHold Shift to move offsets 10x faster';
+	    }
 
 		tipText = new FlxText(10, 10, FlxG.width - 20, TIP_TEXT_MAIN, 8);
 		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -172,6 +172,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 		var tabs = [
 			{name: 'Character Type', label: 'Character Type'},
 		];
+
 		UI_typebox = new FlxUITabMenu(null, tabs, true);
 		UI_typebox.resize(120, 180);
 		UI_typebox.x = 900;
@@ -282,6 +283,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 				character.reloadAnimations();
 				ghostLoop.reloadAnimations();
 				ghostIdle.reloadAnimations();
+
 				if(curSelectedAnim == theAnim) {
 					ghostLoop.playAnim(theAnim);
 					ghostIdle.playAnim(theAnim, true);
@@ -317,11 +319,13 @@ class DialogueCharacterEditorState extends MusicBeatState
 					ghostLoop.reloadAnimations();
 					ghostIdle.reloadAnimations();
 					reloadAnimationsDropDown();
+
 					if(character.jsonFile.animations.length > 0 && lastSelected == animArray.anim.trim()) {
 						var animToPlay:String = character.jsonFile.animations[0].anim;
 						ghostLoop.playAnim(animToPlay);
 						ghostIdle.playAnim(animToPlay, true);
 					}
+
 					animationDropDown.selectedLabel = lastSelected;
 					animationInputText.text = '';
 					loopInputText.text = '';
@@ -534,10 +538,20 @@ class DialogueCharacterEditorState extends MusicBeatState
 			//lots of Ifs lol get trolled
 			var offsetAdd:Int = 1;
 			var speed:Float = 300;
-			if(FlxG.keys.pressed.SHIFT || touchPad.buttonZ.pressed) {
+
+			#if mobile
+			if(FlxG.keys.pressed.SHIFT || touchPad.buttonZ.pressed)
+			{
 				speed = 1200;
 				offsetAdd = 10;
 			}
+			#else
+			if(FlxG.keys.pressed.SHIFT)
+			{
+				speed = 1200;
+				offsetAdd = 10;
+			}
+			#end
 
 			var negaMult:Array<Int> = [1, 1, -1, -1];
 			var controlArray:Array<Bool> = [FlxG.keys.pressed.J, FlxG.keys.pressed.I, FlxG.keys.pressed.L, FlxG.keys.pressed.K];
@@ -554,8 +568,19 @@ class DialogueCharacterEditorState extends MusicBeatState
 			if(UI_mainbox.selected_tab_id == 'Animations' && curSelectedAnim != null && character.dialogueAnimations.exists(curSelectedAnim)) {
 				var moved:Bool = false;
 				var animShit:DialogueAnimArray = character.dialogueAnimations.get(curSelectedAnim);
+
+				#if mobile
 				var controlArrayLoop:Array<Bool> = [FlxG.keys.justPressed.A || touchPad.buttonLeft2.justPressed, FlxG.keys.justPressed.W || touchPad.buttonUp2.justPressed, FlxG.keys.justPressed.D || touchPad.buttonRight2.justPressed, FlxG.keys.justPressed.S || touchPad.buttonDown2.justPressed];
+				#else
+				var controlArrayLoop:Array<Bool> = [FlxG.keys.justPressed.A, FlxG.keys.justPressed.W, FlxG.keys.justPressed.D, FlxG.keys.justPressed.S];
+				#end
+
+				#if mobile
 				var controlArrayIdle:Array<Bool> = [FlxG.keys.justPressed.LEFT || touchPad.buttonLeft.justPressed, FlxG.keys.justPressed.UP || touchPad.buttonUp.justPressed, FlxG.keys.justPressed.RIGHT || touchPad.buttonRight.justPressed, FlxG.keys.justPressed.DOWN || touchPad.buttonDown.justPressed];
+				#else
+				var controlArrayIdle:Array<Bool> = [FlxG.keys.justPressed.LEFT, FlxG.keys.justPressed.UP, FlxG.keys.justPressed.RIGHT, FlxG.keys.justPressed.DOWN];
+				#end
+				
 				for (i in 0...controlArrayLoop.length) {
 					if(controlArrayLoop[i]) {
 						if(i % 2 == 1) {
@@ -593,6 +618,8 @@ class DialogueCharacterEditorState extends MusicBeatState
 				camGame.zoom += elapsed * camGame.zoom;
 				if(camGame.zoom > 1) camGame.zoom = 1;
 			}
+
+			#if mobile
 			if(FlxG.keys.justPressed.H || touchPad.buttonY.justPressed) {
 				if(UI_mainbox.selected_tab_id == 'Animations') {
 					currentGhosts++;
@@ -606,11 +633,35 @@ class DialogueCharacterEditorState extends MusicBeatState
 					hudGroup.visible = !hudGroup.visible;
 				}
 			}
+			#else
+			if(FlxG.keys.justPressed.H) {
+				if(UI_mainbox.selected_tab_id == 'Animations') {
+					currentGhosts++;
+					if(currentGhosts > 2) currentGhosts = 0;
+
+					ghostLoop.visible = (currentGhosts != 1);
+					ghostIdle.visible = (currentGhosts != 2);
+					ghostLoop.alpha = (currentGhosts == 2 ? 1 : 0.6);
+					ghostIdle.alpha = (currentGhosts == 1 ? 1 : 0.6);
+				} else {
+					hudGroup.visible = !hudGroup.visible;
+				}
+			}
+			#end
+
+			#if mobile
 			if(FlxG.keys.justPressed.R || touchPad.buttonX.justPressed) {
 				camGame.zoom = 1;
 				mainGroup.setPosition(0, 0);
 				hudGroup.visible = true;
 			}
+			#else
+			if(FlxG.keys.justPressed.R) {
+				camGame.zoom = 1;
+				mainGroup.setPosition(0, 0);
+				hudGroup.visible = true;
+			}
+			#end
 
 			if(UI_mainbox.selected_tab_id != lastTab) {
 				if(UI_mainbox.selected_tab_id == 'Animations') {
@@ -668,11 +719,27 @@ class DialogueCharacterEditorState extends MusicBeatState
 				}
 			}
 
-			if(FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justPressed.BACK #end || touchPad.buttonB.justPressed) {
+			#if mobile
+			if(FlxG.keys.justPressed.ESCAPE
+			
+			#if android
+			|| FlxG.android.justPressed.BACK
+			#end
+			
+			|| touchPad.buttonB.justPressed)
+			{
 				MusicBeatState.switchState(new states.editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
 				transitioning = true;
 			}
+			#else
+			if(FlxG.keys.justPressed.ESCAPE)
+			{
+				MusicBeatState.switchState(new states.editors.MasterEditorMenu());
+				FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
+				transitioning = true;
+			}
+			#end
 
 			ghostLoop.setPosition(character.x, character.y);
 			ghostIdle.setPosition(character.x, character.y);
