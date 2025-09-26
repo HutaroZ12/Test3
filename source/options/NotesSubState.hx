@@ -466,7 +466,9 @@ class NotesSubState extends MusicBeatSubstate
 			}
 			else holdingOnObj = null;
 		}
+		
 		// holding
+		#if mobile
 		if(holdingOnObj != null)
 		{
 			if (FlxG.mouse.justReleased || (controls.controllerMode && controls.justReleased('accept')))
@@ -526,6 +528,67 @@ class NotesSubState extends MusicBeatSubstate
 			FlxG.sound.play(Paths.sound('cancelMenu'), 0.6);
 			updateColors();
 		}
+		#else
+		if(holdingOnObj != null)
+		{
+			if (FlxG.mouse.justReleased || (controls.controllerMode && controls.justReleased('accept')))
+			{
+				holdingOnObj = null;
+				_storedColor = getShaderColor();
+				updateColors();
+				FlxG.sound.play(Paths.sound('scrollMenu'), 0.6);
+			}
+			else if (generalMoved || generalPressed)
+			{
+				if (holdingOnObj == colorGradient)
+				{
+					var newBrightness = 1 - FlxMath.bound((pointerY() - colorGradient.y) / colorGradient.height, 0, 1);
+					_storedColor.alpha = 1;
+					if(_storedColor.brightness == 0) //prevent bug
+						setShaderColor(FlxColor.fromRGBFloat(newBrightness, newBrightness, newBrightness));
+					else
+						setShaderColor(FlxColor.fromHSB(_storedColor.hue, _storedColor.saturation, newBrightness));
+					updateColors(_storedColor);
+				}
+				else if (holdingOnObj == colorWheel)
+				{
+					var center:FlxPoint = new FlxPoint(colorWheel.x + colorWheel.width/2, colorWheel.y + colorWheel.height/2);
+					var mouse:FlxPoint = pointerFlxPoint();
+					var hue:Float = FlxMath.wrap(FlxMath.wrap(Std.int(mouse.degreesTo(center)), 0, 360) - 90, 0, 360);
+					var sat:Float = FlxMath.bound(mouse.dist(center) / colorWheel.width*2, 0, 1);
+					//trace('$hue, $sat');
+					if(sat != 0) setShaderColor(FlxColor.fromHSB(hue, sat, _storedColor.brightness));
+					else setShaderColor(FlxColor.fromRGBFloat(_storedColor.brightness, _storedColor.brightness, _storedColor.brightness));
+					updateColors();
+				}
+			} 
+		}
+		else if(controls.RESET && hexTypeNum < 0)
+		{
+			if(FlxG.keys.pressed.SHIFT || FlxG.gamepads.anyJustPressed(LEFT_SHOULDER))
+			{
+				for (i in 0...3)
+				{
+					var strumRGB:RGBShaderReference = myNotes.members[curSelectedNote].rgbShader;
+					var color:FlxColor = !onPixel ? ClientPrefs.defaultData.arrowRGB[curSelectedNote][i] :
+													ClientPrefs.defaultData.arrowRGBPixel[curSelectedNote][i];
+					switch(i)
+					{
+						case 0:
+							getShader().r = strumRGB.r = color;
+						case 1:
+							getShader().g = strumRGB.g = color;
+						case 2:
+							getShader().b = strumRGB.b = color;
+					}
+					dataArray[curSelectedNote][i] = color;
+				}
+			}
+			setShaderColor(!onPixel ? ClientPrefs.defaultData.arrowRGB[curSelectedNote][curSelectedMode] : ClientPrefs.defaultData.arrowRGBPixel[curSelectedNote][curSelectedMode]);
+			FlxG.sound.play(Paths.sound('cancelMenu'), 0.6);
+			updateColors();
+		}
+		#end
 	}
 
 	function pointerOverlaps(obj:Dynamic)
