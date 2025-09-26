@@ -49,8 +49,11 @@ class OptionsState extends MusicBeatState
 				openSubState(new options.GameplaySettingsSubState());
 			case 'Adjust Delay and Combo':
 				MusicBeatState.switchState(new options.NoteOffsetState());
+			
+			#if mobile
 			case 'Mobile Options':
 				openSubState(new mobile.options.MobileOptionsSubState());
+			#end
 		}
 	}
 
@@ -149,11 +152,13 @@ class OptionsState extends MusicBeatState
 			changeSelection(1);
 		}
 
+		#if mobile
 		if (touchPad.buttonC.justPressed || FlxG.keys.justPressed.CONTROL && controls.mobileC)
 		{
 			persistentUpdate = false;
 			openSubState(new MobileControlSelectSubState());
 		}
+		#end
 
 		if (controls.BACK) {
             		exiting = true;
