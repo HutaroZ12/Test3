@@ -182,7 +182,7 @@ class CharacterEditorState extends MusicBeatState
 			\nS - Toggle Silhouettes
 			\nHold C - Move Offsets 10x faster and Camera 4x faster";
 		} else {
-		str = "CAMERA
+			str = "CAMERA
 			\nE/Q - Camera Zoom In/Out
 			\nJ/K/L/I - Move Camera
 			\nR - Reset Camera Zoom
@@ -890,6 +890,8 @@ class CharacterEditorState extends MusicBeatState
 		if (FlxG.keys.pressed.I) FlxG.camera.scroll.y -= elapsed * 500 * shiftMult * ctrlMult;
 
 		var lastZoom = FlxG.camera.zoom;
+
+		#if mobile
 		if(FlxG.keys.justPressed.R && !FlxG.keys.pressed.CONTROL || touchPad.buttonZ.justPressed) FlxG.camera.zoom = 1;
 		else if ((FlxG.keys.pressed.E || touchPad.buttonX.pressed) && FlxG.camera.zoom < 3) {
 			FlxG.camera.zoom += elapsed * FlxG.camera.zoom * shiftMult * ctrlMult;
@@ -899,6 +901,17 @@ class CharacterEditorState extends MusicBeatState
 			FlxG.camera.zoom -= elapsed * FlxG.camera.zoom * shiftMult * ctrlMult;
 			if(FlxG.camera.zoom < 0.1) FlxG.camera.zoom = 0.1;
 		}
+		#else
+		if(FlxG.keys.justPressed.R && !FlxG.keys.pressed.CONTROL) FlxG.camera.zoom = 1;
+		else if ((FlxG.keys.pressed.E || touchPad.buttonX.pressed) && FlxG.camera.zoom < 3) {
+			FlxG.camera.zoom += elapsed * FlxG.camera.zoom * shiftMult * ctrlMult;
+			if(FlxG.camera.zoom > 3) FlxG.camera.zoom = 3;
+		}
+		else if ((FlxG.keys.pressed.Q) && FlxG.camera.zoom > 0.1) {
+			FlxG.camera.zoom -= elapsed * FlxG.camera.zoom * shiftMult * ctrlMult;
+			if(FlxG.camera.zoom < 0.1) FlxG.camera.zoom = 0.1;
+		}
+		#end
 
 		if(lastZoom != FlxG.camera.zoom) cameraZoomText.text = 'Zoom: ' + FlxMath.roundDecimal(FlxG.camera.zoom, 2) + 'x';
 
@@ -906,8 +919,13 @@ class CharacterEditorState extends MusicBeatState
 		var changedAnim:Bool = false;
 		if(anims.length > 1)
 		{
+			#if mobile
 			if((FlxG.keys.justPressed.W  || touchPad.buttonV.justPressed) && (changedAnim = true)) curAnim--;
 			else if((FlxG.keys.justPressed.S || touchPad.buttonD.justPressed) && (changedAnim = true)) curAnim++;
+			#else
+			if((FlxG.keys.justPressed.W) && (changedAnim = true)) curAnim--;
+			else if((FlxG.keys.justPressed.S) && (changedAnim = true)) curAnim++;
+			#end
 
 			if(changedAnim)
 			{
@@ -1007,6 +1025,8 @@ class CharacterEditorState extends MusicBeatState
 				changedOffset = true;
 			}
 		}
+		
+		#if mobile
 		if (touchPad.buttonA.justPressed)
 		{
 			undoOffsets = [character.offset.x, character.offset.y];
@@ -1014,6 +1034,7 @@ class CharacterEditorState extends MusicBeatState
 			character.offset.y = copiedOffset[1];
 			changedOffset = true;
 		}
+		#end
 
 		var anim = anims[curAnim];
 		if(changedOffset && anim != null && anim.offsets != null)
@@ -1076,13 +1097,21 @@ class CharacterEditorState extends MusicBeatState
 		frameAdvanceText.color = clr;
 
 		// OTHER CONTROLS
+		#if mobile
 		if(FlxG.keys.justPressed.F12 || touchPad.buttonS.justPressed)
 			silhouettes.visible = !silhouettes.visible;
+		#else
+		if(FlxG.keys.justPressed.F12)
+			silhouettes.visible = !silhouettes.visible;
+		#end
 
+		#if mobile
 		if((FlxG.keys.justPressed.F1 || touchPad.buttonF.justPressed)|| (helpBg.visible && FlxG.keys.justPressed.ESCAPE))
 		{
-			if(controls.mobileC){
-				touchPad.forEachAlive(function(button:TouchButton){
+			if(controls.mobileC)
+			{
+				touchPad.forEachAlive(function(button:TouchButton)
+				{
 					if(button.tag != 'F')
 						button.visible = !button.visible;
 				});
@@ -1101,6 +1130,32 @@ class CharacterEditorState extends MusicBeatState
 			else MusicBeatState.switchState(new PlayState());
 			return;
 		}
+		#else
+		if((FlxG.keys.justPressed.F1)|| (helpBg.visible && FlxG.keys.justPressed.ESCAPE))
+		{
+			if(controls.mobileC)
+			{
+				touchPad.forEachAlive(function(button:TouchButton)
+				{
+					if(button.tag != 'F')
+						button.visible = !button.visible;
+				});
+			}
+			helpBg.visible = !helpBg.visible;
+			helpTexts.visible = helpBg.visible;
+		}
+		else if(FlxG.keys.justPressed.ESCAPE)
+		{
+			FlxG.mouse.visible = false;
+			if(!_goToPlayState)
+			{
+				MusicBeatState.switchState(new states.editors.MasterEditorMenu());
+				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			}
+			else MusicBeatState.switchState(new PlayState());
+			return;
+		}
+		#end
 	}
 
 	final assetFolder = 'week1';  //load from assets/week1/
@@ -1126,7 +1181,6 @@ class CharacterEditorState extends MusicBeatState
 
 		Paths.currentLevel = lastLoaded;
 	}
-
 
 	inline function updatePointerPos(?snap:Bool = true)
 	{
