@@ -351,6 +351,7 @@ class NoteOffsetState extends MusicBeatState
 				}
 			}
 
+			#if mobile
 			if(controls.RESET || touchPad.buttonC.justPressed)
 			{
 				for (i in 0...ClientPrefs.data.comboOffset.length)
@@ -359,6 +360,16 @@ class NoteOffsetState extends MusicBeatState
 				}
 				repositionCombo();
 			}
+			#else
+			if(controls.RESET)
+			{
+				for (i in 0...ClientPrefs.data.comboOffset.length)
+				{
+					ClientPrefs.data.comboOffset[i] = 0;
+				}
+				repositionCombo();
+			}
+			#end
 		}
 		else
 		{
@@ -544,7 +555,7 @@ class NoteOffsetState extends MusicBeatState
 			str = 'Note/Beat Delay';
 
                 if (controls.mobileC) {
-		str2 = '(Press A to Switch)';
+					str2 = '(Press A to Switch)';
                 } else {
 					if(!controls.controllerMode)
 						str2 = '(Press Accept to Switch)';
