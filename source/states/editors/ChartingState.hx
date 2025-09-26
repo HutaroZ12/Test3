@@ -289,8 +289,8 @@ class ChartingState extends MusicBeatState
 		add(quant);
 
 		strumLineNotes = new FlxTypedGroup<StrumNote>();
-		for (i in 0...8){
-			var note:StrumNote = new StrumNote(GRID_SIZE * (i+1), strumLine.y, i % 4, 0);
+		for (i in 0...8) {
+			var note:StrumNote = new StrumNote(GRID_SIZE * (i + 1), strumLine.y, i % 4, 0);
 			note.setGraphicSize(GRID_SIZE, GRID_SIZE);
 			note.updateHitbox();
 			note.playAnim('static', true);
@@ -322,35 +322,37 @@ class ChartingState extends MusicBeatState
 		UI_box.y = 25;
 		UI_box.scrollFactor.set();
 
-                if (controls.mobileC) {
-		text =
-		"Up/Down - Change Conductor's strum time
-		\nLeft/Right - Go to the previous/next section
-		\nHold Y to move 4x faster
-		\nZ/D - Zoom in/out
-		\n
-		\nC - Test your chart inside Chart Editor
-		\nA - Play your chart
-		\nX - Stop/Resume song";
-                } else {
-		text =
-		"W/S or Mouse Wheel - Change Conductor's strum time
-		\nA/D - Go to the previous/next section
-		\nLeft/Right - Change Snap
-		\nUp/Down - Change Conductor's Strum Time with Snapping" +
-		#if FLX_PITCH
-		"\nLeft Bracket / Right Bracket - Change Song Playback Rate (SHIFT to go Faster)
-		\nALT + Left Bracket / Right Bracket - Reset Song Playback Rate" +
-		#end
-		"\nHold Shift to move 4x faster
-		\nHold Control and click on an arrow to select it
-		\nZ/X - Zoom in/out
-		\n
-		\nEsc - Test your chart inside Chart Editor
-		\nEnter - Play your chart
-		\nQ/E - Decrease/Increase Note Sustain Length
-		\nSpace - Stop/Resume song";
-                }
+        if (controls.mobileC) {
+			text =
+			"Up/Down - Change Conductor's strum time
+			\nLeft/Right - Go to the previous/next section
+			\nHold Y to move 4x faster
+			\nZ/D - Zoom in/out
+			\n
+			\nC - Test your chart inside Chart Editor
+			\nA - Play your chart
+			\nX - Stop/Resume song";
+        } else {
+			text =
+			"W/S or Mouse Wheel - Change Conductor's strum time
+			\nA/D - Go to the previous/next section
+			\nLeft/Right - Change Snap
+			\nUp/Down - Change Conductor's Strum Time with Snapping" +
+			
+			#if FLX_PITCH
+			"\nLeft Bracket / Right Bracket - Change Song Playback Rate (SHIFT to go Faster)
+			\nALT + Left Bracket / Right Bracket - Reset Song Playback Rate" +
+			#end
+			
+			"\nHold Shift to move 4x faster
+			\nHold Control and click on an arrow to select it
+			\nZ/X - Zoom in/out
+			\n
+			\nEsc - Test your chart inside Chart Editor
+			\nEnter - Play your chart
+			\nQ/E - Decrease/Increase Note Sustain Length
+			\nSpace - Stop/Resume song";
+        }
 
 		var tipTextArray:Array<String> = text.split('\n');
 		for (i in 0...tipTextArray.length) {
@@ -406,9 +408,11 @@ class ChartingState extends MusicBeatState
 	var playSoundDad:FlxUICheckBox = null;
 	var UI_songTitle:FlxUIInputText;
 	var stageDropDown:FlxUIDropDownMenu;
+	
 	#if FLX_PITCH
 	var sliderRate:FlxUISlider;
 	#end
+	
 	function addSongUI():Void
 	{
 		UI_songTitle = new FlxUIInputText(10, 10, 70, _song.song, 8);
@@ -1165,6 +1169,7 @@ class ChartingState extends MusicBeatState
 	var instVolume:FlxUINumericStepper;
 	var voicesVolume:FlxUINumericStepper;
 	var voicesOppVolume:FlxUINumericStepper;
+	
 	function addChartingUI() {
 		var tab_group_chart = new FlxUI(null, UI_box);
 		tab_group_chart.name = 'Charting';
@@ -1369,6 +1374,7 @@ class ChartingState extends MusicBeatState
 	var gameOverEndInputText:FlxUIInputText;
 	var noteSkinInputText:FlxUIInputText;
 	var noteSplashesInputText:FlxUIInputText;
+	
 	function addDataUI()
 	{
 		var tab_group_data = new FlxUI(null, UI_box);
@@ -1801,7 +1807,7 @@ class ChartingState extends MusicBeatState
 					dummyArrow.y = touch.y;
 				else
 					dummyArrow.y = Math.floor(touch.y / GRID_SIZE) * GRID_SIZE;
-			}else{
+			} else {
 				dummyArrow.visible = false;
 			}
 		}
@@ -1858,7 +1864,7 @@ class ChartingState extends MusicBeatState
 				dummyArrow.y = FlxG.mouse.y;
 			else
 				dummyArrow.y = Math.floor(FlxG.mouse.y / GRID_SIZE) * GRID_SIZE;
-		}else{
+		} else {
 			dummyArrow.visible = false;
 		}
 		}
@@ -1896,6 +1902,7 @@ class ChartingState extends MusicBeatState
 
 		if (!blockInput)
 		{
+			#if mobile
 			if (FlxG.keys.justPressed.ESCAPE || touchPad.buttonC.justPressed)
 			{
 				if(FlxG.sound.music != null)
@@ -1932,19 +1939,72 @@ class ChartingState extends MusicBeatState
 				StageData.loadDirectory(_song);
 				LoadingState.loadAndSwitchState(new PlayState());
 			}
+			#else
+			if (FlxG.keys.justPressed.ESCAPE)
+			{
+				if(FlxG.sound.music != null)
+					FlxG.sound.music.stop();
+
+				if(vocals != null)
+				{
+					vocals.pause();
+					vocals.volume = 0;
+				}
+				if(opponentVocals != null)
+				{
+					opponentVocals.pause();
+					opponentVocals.volume = 0;
+				}
+
+				autosaveSong();
+				playtesting = true;
+				playtestingTime = Conductor.songPosition;
+				playtestingOnComplete = FlxG.sound.music.onComplete;
+				touchPad.active = touchPad.visible = false;
+				openSubState(new states.editors.EditorPlayState(playbackSpeed));
+			}
+			else if (FlxG.keys.justPressed.ENTER)
+			{
+				autosaveSong();
+				FlxG.mouse.visible = false;
+				PlayState.SONG = _song;
+				FlxG.sound.music.stop();
+				if(vocals != null) vocals.stop();
+				if(opponentVocals != null) opponentVocals.stop();
+
+				//if(_song.stage == null) _song.stage = stageDropDown.selectedLabel;
+				StageData.loadDirectory(_song);
+				LoadingState.loadAndSwitchState(new PlayState());
+			}
+			#end
 
 			if(curSelectedNote != null && curSelectedNote[1] > -1) {
+				#if mobile
 				if (touchPad.buttonDown2.justPressed || FlxG.keys.justPressed.E)
 				{
 					changeNoteSustain(Conductor.stepCrochet);
 				}
+				#else
+				if (FlxG.keys.justPressed.E)
+				{
+					changeNoteSustain(Conductor.stepCrochet);
+				}
+				#end
+
+				#if mobile
 				if (touchPad.buttonUp2.justPressed || FlxG.keys.justPressed.Q)
 				{
 					changeNoteSustain(-Conductor.stepCrochet);
 				}
+				#else
+				if (FlxG.keys.justPressed.Q)
+				{
+					changeNoteSustain(-Conductor.stepCrochet);
+				}
+				#end
 			}
 
-
+			#if mobile
 			if (FlxG.keys.justPressed.BACKSPACE || touchPad.buttonB.justPressed) {
 				// Protect against lost data when quickly leaving the chart editor.
 				autosaveSong();
@@ -1954,19 +2014,51 @@ class ChartingState extends MusicBeatState
 				FlxG.mouse.visible = false;
 				return;
 			}
+			#else
+			if (FlxG.keys.justPressed.BACKSPACE) {
+				// Protect against lost data when quickly leaving the chart editor.
+				autosaveSong();
+				PlayState.chartingMode = false;
+				MusicBeatState.switchState(new states.editors.MasterEditorMenu());
+				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				FlxG.mouse.visible = false;
+				return;
+			}
+			#end
 
+			#if mobile
 			if(touchPad.buttonV.justPressed || FlxG.keys.justPressed.Z && FlxG.keys.pressed.CONTROL) {
 				undo();
 			}
+			#else
+			if(FlxG.keys.justPressed.Z && FlxG.keys.pressed.CONTROL) {
+				undo();
+			}
+			#end
 
+			#if mobile
 			if(FlxG.keys.justPressed.Z || touchPad.buttonZ.justPressed && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
 				--curZoom;
 				updateZoom();
 			}
+			#else
+			if(FlxG.keys.justPressed.Z && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
+				--curZoom;
+				updateZoom();
+			}
+			#end
+
+			#if mobile
 			if(FlxG.keys.justPressed.X || touchPad.buttonD.justPressed && curZoom < zoomList.length-1) {
 				curZoom++;
 				updateZoom();
 			}
+			#else
+			if(FlxG.keys.justPressed.X && curZoom < zoomList.length-1) {
+				curZoom++;
+				updateZoom();
+			}
+			#end
 
 			if (FlxG.keys.justPressed.TAB)
 			{
@@ -1984,6 +2076,7 @@ class ChartingState extends MusicBeatState
 				}
 			}
 
+			#if mobile
 			if (FlxG.keys.justPressed.SPACE || touchPad.buttonX.justPressed)
 			{
 				if(vocals != null) vocals.play();
@@ -1997,6 +2090,21 @@ class ChartingState extends MusicBeatState
 				}
 				else FlxG.sound.music.pause();
 			}
+			#else
+			if (FlxG.keys.justPressed.SPACE)
+			{
+				if(vocals != null) vocals.play();
+				if(opponentVocals != null) opponentVocals.play();
+				pauseAndSetVocalsTime();
+				if (!FlxG.sound.music.playing)
+				{
+					FlxG.sound.music.play();
+					if(vocals != null) vocals.play();
+					if(opponentVocals != null) opponentVocals.play();
+				}
+				else FlxG.sound.music.pause();
+			}
+			#end
 
 			if (!FlxG.keys.pressed.ALT && FlxG.keys.justPressed.R)
 			{
@@ -2033,6 +2141,7 @@ class ChartingState extends MusicBeatState
 
 			//ARROW VORTEX SHIT NO DEADASS
 
+			#if mobile
 			if ((FlxG.keys.pressed.W || FlxG.keys.pressed.S) || (touchPad.buttonUp.pressed || touchPad.buttonDown.pressed))
 			{
 				FlxG.sound.music.pause();
@@ -2047,6 +2156,22 @@ class ChartingState extends MusicBeatState
 
 				pauseAndSetVocalsTime();
 			}
+			#else
+			if (FlxG.keys.pressed.W || FlxG.keys.pressed.S)
+			{
+				FlxG.sound.music.pause();
+
+				var holdingShift:Float = 1;
+				if (FlxG.keys.pressed.CONTROL) holdingShift = 0.25;
+				else if (FlxG.keys.pressed.SHIFT) holdingShift = 4;
+
+				var daTime:Float = 700 * FlxG.elapsed * holdingShift;
+
+				FlxG.sound.music.time += daTime * ((FlxG.keys.pressed.W) ? -1 : 1);
+
+				pauseAndSetVocalsTime();
+			}
+			#end
 
 			if(!vortex){
 				if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN)
@@ -2070,16 +2195,24 @@ class ChartingState extends MusicBeatState
 
 			var style = currentType;
 
-			if (FlxG.keys.pressed.SHIFT || touchPad.buttonY.pressed){
+			#if mobile
+			if (FlxG.keys.pressed.SHIFT || touchPad.buttonY.pressed)
+			{
 				style = 3;
 			}
+			#else
+			if (FlxG.keys.pressed.SHIFT)
+			{
+				style = 3;
+			}
+			#end
 
 			var conductorTime = Conductor.songPosition; //+ sectionStartTime();Conductor.songPosition / Conductor.stepCrochet;
 
 			//AWW YOU MADE IT SEXY <3333 THX SHADMAR
 
-			if(!blockInput){
-				if(FlxG.keys.justPressed.RIGHT){
+			if(!blockInput) {
+				if(FlxG.keys.justPressed.RIGHT) {
 					curQuant++;
 					if(curQuant>quantizations.length-1)
 						curQuant = 0;
@@ -2087,7 +2220,7 @@ class ChartingState extends MusicBeatState
 					quantization = quantizations[curQuant];
 				}
 
-				if(FlxG.keys.justPressed.LEFT){
+				if(FlxG.keys.justPressed.LEFT) {
 					curQuant--;
 					if(curQuant<0)
 						curQuant = quantizations.length-1;
@@ -2162,18 +2295,43 @@ class ChartingState extends MusicBeatState
 				}
 			}
 			var shiftThing:Int = 1;
+
+			#if mobile
 			if (FlxG.keys.pressed.SHIFT || touchPad.buttonY.pressed)
 				shiftThing = 4;
+			#else
+			if (FlxG.keys.pressed.SHIFT)
+				shiftThing = 4;
+			#end
 
+			#if mobile
 			if (FlxG.keys.justPressed.D || touchPad.buttonRight.justPressed)
 				changeSection(curSec + shiftThing);
-			if (FlxG.keys.justPressed.A || touchPad.buttonLeft.justPressed) {
+			#else
+			if (FlxG.keys.justPressed.D)
+				changeSection(curSec + shiftThing);
+			#end
+
+			#if mobile
+			if (FlxG.keys.justPressed.A || touchPad.buttonLeft.justPressed)
+			{
 				if(curSec <= 0) {
 					changeSection(_song.notes.length-1);
 				} else {
 					changeSection(curSec - shiftThing);
 				}
 			}
+			#else
+			if (FlxG.keys.justPressed.A)
+			{
+				if(curSec <= 0) {
+					changeSection(_song.notes.length-1);
+				} else {
+					changeSection(curSec - shiftThing);
+				}
+			}
+			#end
+			
 		} else if (FlxG.keys.justPressed.ENTER) {
 			for (i in 0...blockPressWhileTypingOn.length) {
 				if(blockPressWhileTypingOn[i].hasFocus) {
@@ -2213,8 +2371,14 @@ class ChartingState extends MusicBeatState
 			playbackSpeed -= 0.01;
 		if (!holdingShift && pressedRB || holdingShift && holdingRB)
 			playbackSpeed += 0.01;
+
+		#if mobile
 		if (touchPad.buttonG.justPressed || (FlxG.keys.pressed.ALT && (pressedLB || pressedRB || holdingLB || holdingRB)))
 			playbackSpeed = 1;
+		#else
+		if (FlxG.keys.pressed.ALT && (pressedLB || pressedRB || holdingLB || holdingRB))
+			playbackSpeed = 1;
+		#end
 		//
 
 		if (playbackSpeed <= 0.5)
