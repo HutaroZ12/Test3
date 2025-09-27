@@ -435,10 +435,20 @@ class WeekEditorState extends MusicBeatState
 
 		if(!blockInput) {
 			ClientPrefs.toggleVolumeKeys(true);
-			if(FlxG.keys.justPressed.ESCAPE || touchPad.buttonB.justPressed) {
+
+			#if mobile
+			if(FlxG.keys.justPressed.ESCAPE || touchPad.buttonB.justPressed)
+			{
 				MusicBeatState.switchState(new MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
+			#else
+			if(FlxG.keys.justPressed.ESCAPE)
+			{
+				MusicBeatState.switchState(new MasterEditorMenu());
+				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			}
+			#end
 		}
 
 		super.update(elapsed);
@@ -803,10 +813,20 @@ class WeekEditorFreeplayState extends MusicBeatState
 			}
 		} else {
 			ClientPrefs.toggleVolumeKeys(true);
-			if(FlxG.keys.justPressed.ESCAPE || touchPad.buttonB.justPressed) {
+
+			#if mobile
+			if(FlxG.keys.justPressed.ESCAPE || touchPad.buttonB.justPressed)
+			{
 				MusicBeatState.switchState(new MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
+			#else
+			if(FlxG.keys.justPressed.ESCAPE)
+			{
+				MusicBeatState.switchState(new MasterEditorMenu());
+				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			}
+			#end
 
 			if(controls.UI_UP_P) changeSelection(-1);
 			if(controls.UI_DOWN_P) changeSelection(1);
