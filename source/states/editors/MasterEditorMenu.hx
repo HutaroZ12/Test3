@@ -94,6 +94,7 @@ class MasterEditorMenu extends MusicBeatState
 		{
 			changeSelection(1);
 		}
+		
 		#if MODS_ALLOWED
 		if(controls.UI_LEFT_P)
 		{
