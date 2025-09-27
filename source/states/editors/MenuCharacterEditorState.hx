@@ -267,34 +267,100 @@ class MenuCharacterEditorState extends MusicBeatState
 
 		if(!blockInput) {
 			ClientPrefs.toggleVolumeKeys(true);
-			if(FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justPressed.BACK #end || touchPad.buttonB.justPressed) {
+
+			#if mobile
+			if(FlxG.keys.justPressed.ESCAPE
+			#if android
+			|| FlxG.android.justPressed.BACK
+			#end
+			|| touchPad.buttonB.justPressed)
+			{
 				MusicBeatState.switchState(new states.editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
+			#else
+			if(FlxG.keys.justPressed.ESCAPE)
+			{
+				MusicBeatState.switchState(new states.editors.MasterEditorMenu());
+				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			}
+			#end
 
 			var shiftMult:Int = 1;
-			if(FlxG.keys.pressed.SHIFT || touchPad.buttonA.pressed) shiftMult = 10;
 
-			if(FlxG.keys.justPressed.LEFT || touchPad.buttonLeft.justPressed) {
+			#if mobile
+			if(FlxG.keys.pressed.SHIFT || touchPad.buttonA.pressed) shiftMult = 10;
+			#else
+			if(FlxG.keys.pressed.SHIFT) shiftMult = 10;
+			#end
+
+			#if mobile
+			if(FlxG.keys.justPressed.LEFT || touchPad.buttonLeft.justPressed)
+			{
 				characterFile.position[0] += shiftMult;
 				updateOffset();
 			}
-			if(FlxG.keys.justPressed.RIGHT || touchPad.buttonRight.justPressed) {
+			#else
+			if(FlxG.keys.justPressed.LEFT)
+			{
+				characterFile.position[0] += shiftMult;
+				updateOffset();
+			}
+			#end
+
+			#if mobile
+			if(FlxG.keys.justPressed.RIGHT || touchPad.buttonRight.justPressed)
+			{
 				characterFile.position[0] -= shiftMult;
 				updateOffset();
 			}
-			if(FlxG.keys.justPressed.UP || touchPad.buttonUp.justPressed) {
+			#else
+			if(FlxG.keys.justPressed.RIGHT)
+			{
+				characterFile.position[0] -= shiftMult;
+				updateOffset();
+			}
+			#end
+
+			#if mobile
+			if(FlxG.keys.justPressed.UP || touchPad.buttonUp.justPressed)
+			{
 				characterFile.position[1] += shiftMult;
 				updateOffset();
 			}
-			if(FlxG.keys.justPressed.DOWN || touchPad.buttonDown.justPressed) {
+			#else
+			if(FlxG.keys.justPressed.UP)
+			{
+				characterFile.position[1] += shiftMult;
+				updateOffset();
+			}
+			#end
+
+			#if mobile
+			if(FlxG.keys.justPressed.DOWN || touchPad.buttonDown.justPressed)
+			{
 				characterFile.position[1] -= shiftMult;
 				updateOffset();
 			}
+			#else
+			if(FlxG.keys.justPressed.DOWN)
+			{
+				characterFile.position[1] -= shiftMult;
+				updateOffset();
+			}
+			#end
 
-			if(FlxG.keys.justPressed.SPACE || touchPad.buttonC.justPressed && curTypeSelected == 1) {
+			#if mobile
+			if(FlxG.keys.justPressed.SPACE || touchPad.buttonC.justPressed && curTypeSelected == 1)
+			{
 				grpWeekCharacters.members[curTypeSelected].animation.play('confirm', true);
 			}
+			#else
+			if(FlxG.keys.justPressed.SPACE && curTypeSelected == 1)
+			{
+				grpWeekCharacters.members[curTypeSelected].animation.play('confirm', true);
+			}
+			#end
 		}
 
 		var char:MenuCharacter = grpWeekCharacters.members[1];
