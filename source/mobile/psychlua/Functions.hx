@@ -34,6 +34,7 @@ import mobile.backend.TouchUtil;
  * ...
  * @author: Karim Akra and Lily Ross (mcagabe19)
  */
+#if mobile
 class MobileFunctions
 {
 	public static function implement(funk:FunkinLua)
@@ -404,5 +405,6 @@ class AndroidFunctions
 		});
 	}
 }
+#end
 #end
 #end
