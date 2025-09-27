@@ -153,7 +153,8 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 			changeSelection(1);
 		}
 
-		if (controls.BACK) {
+		if (controls.BACK)
+		{
 			controls.isInSubstate = false;
 			close();
 			ClientPrefs.saveSettings();
@@ -178,7 +179,8 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 					reloadCheckboxes();
 				}
 			} else {
-				if(controls.UI_LEFT || controls.UI_RIGHT) {
+				if(controls.UI_LEFT || controls.UI_RIGHT)
+				{
 					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P);
 					if(holdTime > 0.5 || pressed) {
 						if(pressed) {
@@ -268,6 +270,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 				}
 			}
 
+			#if mobile
 			if(controls.RESET || touchPad.buttonC.justPressed)
 			{
 				for (i in 0...optionsArray.length)
@@ -298,6 +301,38 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				reloadCheckboxes();
 			}
+			#else
+			if(controls.RESET)
+			{
+				for (i in 0...optionsArray.length)
+				{
+					var leOption:GameplayOption = optionsArray[i];
+					leOption.setValue(leOption.defaultValue);
+					if(leOption.type != 'bool')
+					{
+						if(leOption.type == 'string')
+						{
+							leOption.curOption = leOption.options.indexOf(leOption.getValue());
+						}
+						updateTextFrom(leOption);
+					}
+
+					if(leOption.name == 'Scroll Speed')
+					{
+						leOption.displayFormat = "%vX";
+						leOption.maxValue = 3;
+						if(leOption.getValue() > 3)
+						{
+							leOption.setValue(3);
+						}
+						updateTextFrom(leOption);
+					}
+					leOption.change();
+				}
+				FlxG.sound.play(Paths.sound('cancelMenu'));
+				reloadCheckboxes();
+			}
+			#end
 		}
 
 		if(nextAccept > 0) {
@@ -305,7 +340,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		}
 
 		#if mobile
-		if (touchPad == null){ //sometimes it dosent add the tpad, hopefully this fixes it
+		if (touchPad == null) { //sometimes it dosent add the tpad, hopefully this fixes it
 		addTouchPad("LEFT_FULL", "A_B_C");
 		addTouchPadCamera();
 		}
