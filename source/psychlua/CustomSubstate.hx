@@ -63,13 +63,12 @@ class CustomSubstate extends MusicBeatSubstate
 		return false;
 	}
 
+	#if mobile
 	public static function insertLuaTpad(?pos:Int = -1)
 	{
 		if(instance != null)
 		{
-			#if mobile
 			var tagObject:FlxObject = PlayState.instance.luaTouchPad;
-			#end
 
 			if(tagObject != null)
 			{
@@ -80,6 +79,7 @@ class CustomSubstate extends MusicBeatSubstate
 		}
 		return false;
 	}
+	#end
 
 	override function create()
 	{
