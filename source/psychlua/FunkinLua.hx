@@ -1515,8 +1515,13 @@ class FunkinLua {
 		CustomSubstate.implement(this);
 		ShaderFunctions.implement(this);
 		DeprecatedFunctions.implement(this);
+
+		#if mobile
 		MobileFunctions.implement(this);
-		#if android AndroidFunctions.implement(this); #end
+		#if android
+		AndroidFunctions.implement(this);
+		#end
+		#end
 
 		try{
 			var isString:Bool = !FileSystem.exists(scriptName);
