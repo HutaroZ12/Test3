@@ -210,19 +210,28 @@ class AchievementsMenuState extends MusicBeatState
 					_changeSelection();
 				}
 			}
-			
+
+			#if mobile
 			if(MusicBeatState.getState().touchPad.buttonC.justPressed || controls.RESET && (options[curSelected].unlocked || options[curSelected].curProgress > 0))
 			{
 				removeTouchPad();
 				openSubState(new ResetAchievementSubstate());
 			}
+			#else
+			if(controls.RESET && (options[curSelected].unlocked || options[curSelected].curProgress > 0))
+			{
+				openSubState(new ResetAchievementSubstate());
+			}
+			#end
 		}
 
-		if (controls.BACK) {
+		if (controls.BACK)
+		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
 			goingBack = true;
 		}
+		
 		super.update(elapsed);
 	}
 
@@ -273,7 +282,7 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 
 	public function new()
 	{
-                controls.isInSubstate = true;
+        controls.isInSubstate = true;
 
 		super();
 
@@ -318,14 +327,15 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 		if(controls.BACK)
 		{
 			close();
-                        controls.isInSubstate = false;
+            controls.isInSubstate = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			return;
 		}
 
 		super.update(elapsed);
 
-		if(controls.UI_LEFT_P || controls.UI_RIGHT_P) {
+		if(controls.UI_LEFT_P || controls.UI_RIGHT_P)
+		{
 			onYes = !onYes;
 			updateOptions();
 		}
@@ -354,12 +364,13 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 						onUpdate: function(twn:FlxTween) state.progressBar.updateBar()
 					});
 				}
+				
 				Achievements.save();
 				FlxG.save.flush();
 
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 			}
-                        controls.isInSubstate = false;
+            controls.isInSubstate = false;
 			close();
 			return;
 		}
