@@ -6,6 +6,7 @@ import objects.Character;
 
 import states.MainMenuState;
 import states.FreeplayState;
+import states.ModsMenuState;
 
 class MasterEditorMenu extends MusicBeatState
 {
@@ -75,7 +76,12 @@ class MasterEditorMenu extends MusicBeatState
 
 		#if mobile
 		#if MODS_ALLOWED
-		addTouchPad("LEFT_FULL", "A_B");
+		if(modsList.all.length < 1)
+		{
+			addTouchPad("UP_DOWN", "A_B");
+		} else {
+			addTouchPad("LEFT_FULL", "A_B");
+		}
 		#else
 		addTouchPad("UP_DOWN", "A_B");
 		#end
