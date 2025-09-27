@@ -160,9 +160,11 @@ class EditorPlayState extends MusicBeatSubstate
 		DiscordClient.changePresence('Playtesting on Chart Editor', PlayState.SONG.song, null, true, songLength);
 		#end
 
+		#if mobile
 		#if !android
 		addTouchPad("NONE", "P");
 		addTouchPadCamera();
+		#end
 		#end
 
 		#if mobile
@@ -178,8 +180,7 @@ class EditorPlayState extends MusicBeatSubstate
 		#if mobile
 		if(
 		#if android
-		// FlxG.android.justReleased.BACK
-		FlxG.android.justPressed.BACK
+		FlxG.android.justReleased.BACK
 		#else
 		touchPad.buttonP.justPressed
 		#end
