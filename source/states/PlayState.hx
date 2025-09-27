@@ -265,7 +265,9 @@ class PlayState extends MusicBeatState
 	public var startCallback:Void->Void = null;
 	public var endCallback:Void->Void = null;
 
+	#if mobile
 	public var luaTouchPad:TouchPad;
+	#end
 
 	override public function create()
 	{
@@ -646,9 +648,11 @@ class PlayState extends MusicBeatState
 		cacheCountdown();
 		cachePopUpScore();
 
+		#if mobile
 		#if (!android)
 		addTouchPad("NONE", "P");
  		addTouchPadCamera();
+		#end
 		#end
 
 		super.create();
@@ -3564,6 +3568,7 @@ class PlayState extends MusicBeatState
 	}
 	#end
 
+	#if mobile
 	public function makeLuaTouchPad(DPadMode:String, ActionMode:String) {
 		if(members.contains(luaTouchPad)) return;
 
@@ -3573,19 +3578,23 @@ class PlayState extends MusicBeatState
 		luaTouchPad = new TouchPad(DPadMode, ActionMode, NONE);
 		luaTouchPad.alpha = ClientPrefs.data.controlsAlpha;
 	}
-	
+	#end
+
+	#if mobile
 	public function addLuaTouchPad() {
 		if(luaTouchPad == null || members.contains(luaTouchPad)) return;
 
 		var target = LuaUtils.getTargetInstance();
 		target.insert(target.members.length + 1, luaTouchPad);
 	}
+	#end
 
 	public function addLuaTouchPadCamera() {
 		if(luaTouchPad != null)
 			luaTouchPad.cameras = [luaTpadCam];
 	}
 
+	#if mobile
 	public function removeLuaTouchPad() {
 		if (luaTouchPad != null) {
 			luaTouchPad.kill();
@@ -3594,7 +3603,9 @@ class PlayState extends MusicBeatState
 			luaTouchPad = null;
 		}
 	}
+	#end
 
+	#if mobile
 	public function luaTouchPadPressed(button:Dynamic):Bool {
 		if(luaTouchPad != null) {
 			if(Std.isOfType(button, String))
@@ -3610,7 +3621,9 @@ class PlayState extends MusicBeatState
 		}
 		return false;
 	}
+	#end
 
+	#if mobile
 	public function luaTouchPadJustPressed(button:Dynamic):Bool {
 		if(luaTouchPad != null) {
 			if(Std.isOfType(button, String))
@@ -3626,7 +3639,9 @@ class PlayState extends MusicBeatState
 		}
 		return false;
 	}
-	
+	#end
+
+	#if mobile
 	public function luaTouchPadJustReleased(button:Dynamic):Bool {
 		if(luaTouchPad != null) {
 			if(Std.isOfType(button, String))
@@ -3642,7 +3657,9 @@ class PlayState extends MusicBeatState
 		}
 		return false;
 	}
+	#end
 
+	#if mobile
 	public function luaTouchPadReleased(button:Dynamic):Bool {
 		if(luaTouchPad != null) {
 			if(Std.isOfType(button, String))
@@ -3658,4 +3675,5 @@ class PlayState extends MusicBeatState
 		}
 		return false;
 	}
+	#end
 }
