@@ -67,7 +67,9 @@ class CustomSubstate extends MusicBeatSubstate
 	{
 		if(instance != null)
 		{
+			#if mobile
 			var tagObject:FlxObject = PlayState.instance.luaTouchPad;
+			#end
 
 			if(tagObject != null)
 			{
