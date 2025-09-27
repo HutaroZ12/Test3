@@ -3589,10 +3589,12 @@ class PlayState extends MusicBeatState
 	}
 	#end
 
+	#if mobile
 	public function addLuaTouchPadCamera() {
 		if(luaTouchPad != null)
 			luaTouchPad.cameras = [luaTpadCam];
 	}
+	#end
 
 	#if mobile
 	public function removeLuaTouchPad() {
