@@ -304,16 +304,21 @@ class HScript extends SScript
 			setSpecialObject(PlayState.instance, false, PlayState.instance.instancesExclude);
 		}
 
-                #if LUA_ALLOWED
+        #if LUA_ALLOWED
+		#if mobile
 		set("addTouchPad", (DPadMode:String, ActionMode:String) -> {
 			PlayState.instance.makeLuaTouchPad(DPadMode, ActionMode);
 			PlayState.instance.addLuaTouchPad();
 		  });
-  
+		#end
+
+		#if mobile
 		set("removeTouchPad", () -> {
 			PlayState.instance.removeLuaTouchPad();
 		});
-  
+		#end
+
+		#if mobile
 		set("addTouchPadCamera", () -> {
 			if(PlayState.instance.luaTouchPad == null){
 				FunkinLua.luaTrace('addTouchPadCamera: TPAD does not exist.');
@@ -321,7 +326,9 @@ class HScript extends SScript
 			}
 			PlayState.instance.addLuaTouchPadCamera();
 		});
-  
+		#end
+
+		#if mobile
 		set("touchPadJustPressed", function(button:Dynamic):Bool {
 			if(PlayState.instance.luaTouchPad == null){
 			  //FunkinLua.luaTrace('touchPadJustPressed: TPAD does not exist.');
@@ -329,7 +336,9 @@ class HScript extends SScript
 			}
 		  return PlayState.instance.luaTouchPadJustPressed(button);
 		});
-  
+		#end
+
+		#if mobile
 		set("touchPadPressed", function(button:Dynamic):Bool {
 			if(PlayState.instance.luaTouchPad == null){
 				//FunkinLua.luaTrace('touchPadPressed: TPAD does not exist.');
@@ -337,7 +346,9 @@ class HScript extends SScript
 			}
 			return PlayState.instance.luaTouchPadPressed(button);
 		});
-  
+		#end
+
+		#if mobile
 		set("touchPadJustReleased", function(button:Dynamic):Bool {
 			if(PlayState.instance.luaTouchPad == null){
 				//FunkinLua.luaTrace('touchPadJustReleased: TPAD does not exist.');
@@ -345,7 +356,8 @@ class HScript extends SScript
 			}
 			return PlayState.instance.luaTouchPadJustReleased(button);
 		});
-                #end
+		#end
+        #end
 
 		if(varsToBring != null) {
 			for (key in Reflect.fields(varsToBring)) {
