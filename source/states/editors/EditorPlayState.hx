@@ -176,16 +176,16 @@ class EditorPlayState extends MusicBeatSubstate
 	override function update(elapsed:Float)
 	{
 		#if mobile
-		// if(#if android FlxG.android.justReleased.BACK #else touchPad.buttonP.justPressed #end || FlxG.keys.justPressed.ESCAPE)
 		if(
-		#if !android
-		touchPad.buttonP.justPressed ||
-		#end
-		FlxG.keys.justPressed.ESCAPE
 		#if android
-		|| FlxG.android.justPressed.BACK
+		// FlxG.android.justReleased.BACK
+		FlxG.android.justPressed.BACK
+		#else
+		touchPad.buttonP.justPressed
 		#end
-		){
+		
+		|| FlxG.keys.justPressed.ESCAPE)
+		{
 			mobileControls.instance.visible = false;
 			endSong();
 			super.update(elapsed);
