@@ -14,7 +14,8 @@ class OutdatedState extends MusicBeatState
 
 		var guh:String;
 
-		if (controls.mobileC) {
+		if (controls.mobileC)
+		{
 			guh = "Sup kiddo, looks like you're running an   \n
 			outdated version of Psych Engine (" + MainMenuState.psychEngineVersion + "),\n
 			please update to " + TitleState.updateVersion + "!\n
@@ -43,11 +44,13 @@ class OutdatedState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		if(!leftState) {
-			if (controls.ACCEPT) {
+			if (controls.ACCEPT)
+			{
 				leftState = true;
-				CoolUtil.browserLoad("https://github.com/FunkinTemplate/FNF-PsychEngine-0.7.3-Template/releases");
+				CoolUtil.browserLoad("https://github.com/AliAlafandy/FNF-PsychEngine-0.7.3-Template/releases");
 			}
-			else if(controls.BACK) {
+			else if(controls.BACK)
+			{
 				leftState = true;
 			}
 
