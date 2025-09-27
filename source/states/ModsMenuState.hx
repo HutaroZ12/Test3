@@ -59,6 +59,7 @@ class ModsMenuState extends MusicBeatState
 
 		if (controls.mobileC)
 			daButton = 'B';
+		
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		persistentUpdate = false;
@@ -103,6 +104,7 @@ class ModsMenuState extends MusicBeatState
 		var buttonWidth = Std.int(bgList.width);
 		var buttonHeight = 80;
 		var daY = 0;
+		
 		if(controls.mobileC)
 			daY = 70;
 		else
@@ -141,6 +143,7 @@ class ModsMenuState extends MusicBeatState
 		});
 		buttonEnableAll.bg.color = FlxColor.GREEN;
 		buttonEnableAll.focusChangeCallback = function(focus:Bool) if(!focus) buttonEnableAll.bg.color = FlxColor.GREEN;
+		
 		if(!controls.mobileC)
 			add(buttonEnableAll);
 
@@ -162,8 +165,10 @@ class ModsMenuState extends MusicBeatState
 		});
 		buttonDisableAll.bg.color = 0xFFFF6666;
 		buttonDisableAll.focusChangeCallback = function(focus:Bool) if(!focus) buttonDisableAll.bg.color = 0xFFFF6666;
+		
 		if(!controls.mobileC)
 			add(buttonDisableAll);
+		
 		checkToggleButtons();
 
 		if(modsList.all.length < 1)
@@ -185,7 +190,11 @@ class ModsMenuState extends MusicBeatState
 
 			FlxG.autoPause = false;
 			changeSelectedMod();
+
+			#if mobile
 			addTouchPad("NONE", "B");
+			#end
+			
 			return super.create();
 		}
 		//
@@ -912,8 +921,8 @@ class ModItem extends FlxSpriteGroup
 			if(pack.color != null)
 			{
 				this.bgColor = FlxColor.fromRGB(pack.color[0] != null ? pack.color[0] : 170,
-											  pack.color[1] != null ? pack.color[1] : 0,
-											  pack.color[2] != null ? pack.color[2] : 255);
+												pack.color[1] != null ? pack.color[1] : 0,
+												pack.color[2] != null ? pack.color[2] : 255);
 			}
 			this.mustRestart = (pack.restart == true);
 		}
