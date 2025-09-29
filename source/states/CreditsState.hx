@@ -39,12 +39,18 @@ class CreditsState extends MusicBeatState
 		#end
 
 		var defaultList:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
+			['Template Team'],
+			['Ali Alafandy', 'alafandy', 'Templator of Psych Engine', 'https://youtube.com/@alialafandy', '000080'],
+			[''],
+
+			#if mobile
 			['Mobile Porting Team'],
 			['mcagabe19', 'lily', 'Head Porter of Psych Engine Mobile', 'https://www.youtube.com/@mcagabe19', 'FFE7C0'],
 			['Karim Akra', 'karim', 'Assistant Porter/Helper #1 of Psych Engine Mobile', 'https://youtube.com/@Karim0690', 'FFB4F0'],
 			['Moxie', 'moxie', 'Helper #2 of Psych Engine Mobile', 'https://twitter.com/moxie_specalist', 'F592C4'],
-			['Ali Alafandy', 'alafandy', 'Recreation of Psych Engine Mobile', 'https://youtube.com/@alialafandy', '000080'],
 			[''],
+			#end
+			
 			['Psych Engine Team'],
 			['Shadow Mario', 'shadowmario', 'Main Programmer and Head of Psych Engine', 'https://ko-fi.com/shadowmario', '444444'],
 			['Riveren', 'riveren', 'Main Artist/Animator of Psych Engine', 'https://twitter.com/riverennn', '14967B'],
