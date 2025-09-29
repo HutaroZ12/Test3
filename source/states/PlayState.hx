@@ -960,7 +960,10 @@ class PlayState extends MusicBeatState
 
 	public function startCountdown()
 	{
+		#if mobile
 		mobileControls.instance.visible = true;
+		#end
+		
 		if(startedCountdown) {
 			callOnScripts('onStartCountdown');
 			return false;
