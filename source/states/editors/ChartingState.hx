@@ -1524,7 +1524,11 @@ class ChartingState extends MusicBeatState
 			DiscordClient.changePresence("Chart Editor", StringTools.replace(_song.song, '-', ' '));
 			#end
 		}
+
+		#if mobile
 		touchPad.active = touchPad.visible = true;
+		#end
+		
 		super.closeSubState();
 	}
 
