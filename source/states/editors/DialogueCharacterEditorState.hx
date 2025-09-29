@@ -529,11 +529,22 @@ class DialogueCharacterEditorState extends MusicBeatState
 
 		if(!blockInput && !animationDropDown.dropPanel.visible) {
 			ClientPrefs.toggleVolumeKeys(true);
-			if(FlxG.keys.justPressed.SPACE || touchPad.buttonA.justPressed && UI_mainbox.selected_tab_id == 'Character') {
+			
+			#if mobile
+			if(FlxG.keys.justPressed.SPACE || touchPad.buttonA.justPressed && UI_mainbox.selected_tab_id == 'Character')
+			{
 				character.playAnim(character.jsonFile.animations[curAnim].anim);
 				daText.resetDialogue();
 				updateTextBox();
 			}
+			#else
+			if(FlxG.keys.justPressed.SPACE && UI_mainbox.selected_tab_id == 'Character')
+			{
+				character.playAnim(character.jsonFile.animations[curAnim].anim);
+				daText.resetDialogue();
+				updateTextBox();
+			}
+			#end
 
 			//lots of Ifs lol get trolled
 			var offsetAdd:Int = 1;
