@@ -1674,13 +1674,30 @@ class PlayState extends MusicBeatState
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 		}
 
-		if ((controls.PAUSE #if android || FlxG.android.justReleased.BACK #else || touchPad.buttonP.justPressed #end) && (startedCountdown && canPause))
+		#if mobile
+		if ((controls.PAUSE
+			 #if android
+			 || FlxG.android.justReleased.BACK
+			 #else
+			 || touchPad.buttonP.justPressed
+			 #end)
+			 && (startedCountdown && canPause))
 		{
 			var ret:Dynamic = callOnScripts('onPause', null, true);
 			if(ret != LuaUtils.Function_Stop) {
 				openPauseMenu();
 			}
 		}
+		#else
+		if (controls.PAUSE && startedCountdown && canPause)
+		{
+			var ret:Dynamic = callOnScripts('onPause', null, true);
+			if(ret != LuaUtils.Function_Stop)
+			{
+				openPauseMenu();
+			}
+		}
+		#end
 
 		if(!endingSong && !inCutscene && allowDebugKeys)
 		{
