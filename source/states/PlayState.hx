@@ -2328,7 +2328,14 @@ class PlayState extends MusicBeatState
 	public var transitioning = false;
 	public function endSong()
 	{
-		mobileControls.instance.visible = #if !android touchPad.visible = #end false;
+		#if mobile
+		mobileControls.instance.visible =
+		#if !android
+		touchPad.visible =
+		#end
+		false;
+		#end
+		
 		//Should kill you if you tried to cheat
 		if(!startingSong) {
 			notes.forEach(function(daNote:Note) {
