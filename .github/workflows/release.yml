@@ -1,4 +1,4 @@
-name: Mobile + Release
+name: Release
 on: workflow_dispatch
 
 permissions:
