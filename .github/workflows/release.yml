@@ -62,7 +62,7 @@ jobs:
         uses: actions/download-artifact@main
         with:
            name: Linux
-           path: /home/runner
+           path: ${{ github.workspace }}
 
       - name: Move Linux File
         run: mv /home/runner/${{ env.PROJECT_NAME }}-release.zip /home/runner/${{ env.PROJECT_NAME }}-Linux.zip
@@ -71,7 +71,7 @@ jobs:
         uses: actions/download-artifact@main
         with:
            name: Windows
-           path: /home/runner
+           path: ${{ github.workspace }}
 
       - name: Move Windows File
         run: mv /home/runner/${{ env.PROJECT_NAME }}-release.zip /home/runner/${{ env.PROJECT_NAME }}-Windows.zip
@@ -89,7 +89,7 @@ jobs:
         uses: actions/download-artifact@main
         with:
            name: macOS x86_64
-           path: /home/runner
+           path: ${{ github.workspace }}
 
       - name: Move macOS x86_64 File
         run: mv /home/runner/${{ env.PROJECT_NAME }}-release.zip /home/runner/${{ env.PROJECT_NAME }}-macOS_x86_64.zip
@@ -98,7 +98,7 @@ jobs:
         uses: actions/download-artifact@main
         with:
            name: macOS AArch64
-           path: /home/runner
+           path: ${{ github.workspace }}
 
       - name: Move macOS AArch64 File
         run: mv /home/runner/${{ env.PROJECT_NAME }}-release.zip /home/runner/${{ env.PROJECT_NAME }}-macOS_AArch64.zip
