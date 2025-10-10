@@ -65,7 +65,7 @@ jobs:
            path: ${{ github.workspace }}
 
       - name: Move Linux File
-        run: mv /home/runner/${{ env.PROJECT_NAME }}-release.zip /home/runner/${{ env.PROJECT_NAME }}-Linux.zip
+        run: mv ${{ github.workspace }}/${{ env.PROJECT_NAME }}-release.zip /home/runner/${{ env.PROJECT_NAME }}-Linux.zip
 
       - name: Download Windows Build
         uses: actions/download-artifact@main
@@ -74,7 +74,7 @@ jobs:
            path: ${{ github.workspace }}
 
       - name: Move Windows File
-        run: mv /home/runner/${{ env.PROJECT_NAME }}-release.zip /home/runner/${{ env.PROJECT_NAME }}-Windows.zip
+        run: mv ${{ github.workspace }}/${{ env.PROJECT_NAME }}-release.zip /home/runner/${{ env.PROJECT_NAME }}-Windows.zip
       
       - name: Download Android Build
         uses: actions/download-artifact@main
@@ -92,7 +92,7 @@ jobs:
            path: ${{ github.workspace }}
 
       - name: Move macOS x86_64 File
-        run: mv /home/runner/${{ env.PROJECT_NAME }}-release.zip /home/runner/${{ env.PROJECT_NAME }}-macOS_x86_64.zip
+        run: mv ${{ github.workspace }}/${{ env.PROJECT_NAME }}-release.zip /home/runner/${{ env.PROJECT_NAME }}-macOS_x86_64.zip
 
       - name: Download macOS AArch64 Build
         uses: actions/download-artifact@main
@@ -101,7 +101,7 @@ jobs:
            path: ${{ github.workspace }}
 
       - name: Move macOS AArch64 File
-        run: mv /home/runner/${{ env.PROJECT_NAME }}-release.zip /home/runner/${{ env.PROJECT_NAME }}-macOS_AArch64.zip
+        run: mv ${{ github.workspace }}/${{ env.PROJECT_NAME }}-release.zip /home/runner/${{ env.PROJECT_NAME }}-macOS_AArch64.zip
       
       - name: Download iOS Build
         uses: actions/download-artifact@main
