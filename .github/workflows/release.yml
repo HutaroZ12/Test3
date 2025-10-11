@@ -16,22 +16,22 @@ jobs:
             os: windows-2022
             buildArgs: "windows -final"
             artifactName: Windows
-            artifactPath: "export/release/windows/bin/*.zip"
+            artifactPath: export\release\windows\bin\*
           - name: Linux
             os: ubuntu-22.04
             buildArgs: "linux -final"
             artifactName: Linux
-            artifactPath: "export/release/linux/bin/*.zip"
+            artifactPath: export/release/linux/bin/*
           - name: macOS x86_64
             os: macos-14
             buildArgs: "mac -64 -D HXCPP_M64"
             artifactName: MacOS-x86_64
-            artifactPath: "export/release/macos/bin/*.zip"
+            artifactPath: export/release/macos/bin/*
           - name: macOS AArch64
             os: macos-15
             buildArgs: "mac -final"
             artifactName: MacOS-arm64
-            artifactPath: "export/release/macos/bin/*.zip"
+            artifactPath: export/release/macos/bin/*
           - name: Android
             os: macos-15
             buildArgs: "android -final -D officialBuild"
