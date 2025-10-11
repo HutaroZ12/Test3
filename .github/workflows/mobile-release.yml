@@ -1,9 +1,7 @@
 name: Mobile + Release
 on: workflow_dispatch
 
-permissions:
-  contents: write
-  discussions: write
+permissions: write-all 
 
 env:
   PROJECT_NAME: PsychEngine
@@ -37,7 +35,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-
       - name: Download Android Build
         uses: actions/download-artifact@main
         with:
@@ -46,7 +43,7 @@ jobs:
 
       - name: Move Android File
         run: mv /home/runner/${{ env.PROJECT_NAME }}-release.apk /home/runner/${{ env.PROJECT_NAME }}-Android.apk
-      
+
       - name: Download iOS Build
         uses: actions/download-artifact@main
         with:
@@ -54,8 +51,8 @@ jobs:
            path: ${{ github.workspace }}
 
       - name: Move iOS File
-        run: mv ${{ github.workspace }}/${{ env.PROJECT_NAME }}-release.ipa /home/runner/${{ env.PROJECT_NAME }}-iOS.ipa
-      
+        run: mv ${{ github.workspace }}/${{ env.PROJECT_NAME }}.ipa /home/runner/${{ env.PROJECT_NAME }}.ipa
+
       - name: Publish The Release
         uses: softprops/action-gh-release@v2
         with:
