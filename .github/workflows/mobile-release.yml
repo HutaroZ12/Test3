@@ -1,4 +1,4 @@
-name: Mobile + Releases
+name: Mobile + Release
 on: workflow_dispatch
 
 permissions: write-all
