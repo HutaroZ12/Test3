@@ -59,37 +59,25 @@ jobs:
         uses: actions/download-artifact@main
         with:
            name: Windows
-           path: ${{ github.workspace }}
-
-      - name: Move Windows File
-        run: mv ${{ github.workspace }}/${{ env.PROJECT_NAME }}.zip /home/runner/${{ env.PROJECT_NAME }}-Windows.zip
+           path: /home/runner
 
       - name: Download Linux Build
         uses: actions/download-artifact@main
         with:
            name: Linux
-           path: ${{ github.workspace }}
-
-      - name: Move Linux File
-        run: mv ${{ github.workspace }}/${{ env.PROJECT_NAME }}.zip /home/runner/${{ env.PROJECT_NAME }}-Linux.zip
+           path: /home/runner
 
       - name: Download macOS x86_64 Build
         uses: actions/download-artifact@main
         with:
            name: MacOS x86_64
-           path: ${{ github.workspace }}
-
-      - name: Move macOS x86_64 File
-        run: mv ${{ github.workspace }}/${{ env.PROJECT_NAME }}.zip /home/runner/${{ env.PROJECT_NAME }}-MacOS_x86_64.zip
+           path: /home/runner
 
       - name: Download macOS AArch64 Build
         uses: actions/download-artifact@main
         with:
            name: MacOS arm64
-           path: ${{ github.workspace }}
-
-      - name: Move macOS AArch64 File
-        run: mv ${{ github.workspace }}/${{ env.PROJECT_NAME }}.zip /home/runner/${{ env.PROJECT_NAME }}-MacOS_arm64.zip
+           path: /home/runner
       
       - name: Download Android Build
         uses: actions/download-artifact@main
@@ -116,9 +104,9 @@ jobs:
           tag_name: "0.7.3"
           prerelease: false
           files: |
-            /home/runner/*.zip
-            /home/runner/*.zip
-            /home/runner/*.zip
-            /home/runner/*.zip
+            Windows
+            Linux
+            MacOS x86_64
+            MacOS arm64
             /home/runner/*.apk
             /home/runner/*.ipa
