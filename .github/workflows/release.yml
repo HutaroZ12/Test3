@@ -12,11 +12,16 @@ jobs:
     strategy:
       matrix:
         include:
-          - name: Windows
+          - name: Windows x64
             os: windows-2022
             buildArgs: "windows -final"
-            artifactName: Windows
+            artifactName: Windows x64
             artifactPath: export\release\windows\bin\*
+          - name: Windows x32
+            os: windows-2019
+            buildArgs: windows
+            artifactName: Windows x32
+            artifactPath: export\32bit\windows\bin\*
           - name: Linux
             os: ubuntu-22.04
             buildArgs: "linux -final"
@@ -50,10 +55,16 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-      - name: Download Windows Build
+      - name: Download Windows x64 Build
         uses: actions/download-artifact@main
         with:
-           name: Windows
+           name: Windows x64
+           path: /home/runner
+
+      - name: Download Windows x32 Build
+        uses: actions/download-artifact@main
+        with:
+           name: Windows x32
            path: /home/runner
 
       - name: Download Linux Build
@@ -93,7 +104,8 @@ jobs:
           tag_name: "0.7.3"
           prerelease: false
           files: |
-            Windows
+            Windows x64
+            Windows x32
             Linux
             MacOS
             /home/runner/*.apk
