@@ -22,15 +22,10 @@ jobs:
             buildArgs: "linux -final"
             artifactName: Linux
             artifactPath: export/release/linux/bin/*
-          - name: macOS x86_64
-            os: macos-14
-            buildArgs: "mac -64 -D HXCPP_M64"
-            artifactName: MacOS-x86_64
-            artifactPath: export/release/macos/bin/*
-          - name: macOS AArch64
+          - name: MacOS
             os: macos-15
             buildArgs: "mac -final"
-            artifactName: MacOS-arm64
+            artifactName: MacOS
             artifactPath: export/release/macos/bin/*
           - name: Android
             os: macos-15
@@ -67,16 +62,10 @@ jobs:
            name: Linux
            path: /home/runner
 
-      - name: Download macOS x86_64 Build
+      - name: Download MacOS Build
         uses: actions/download-artifact@main
         with:
-           name: MacOS x86_64
-           path: /home/runner
-
-      - name: Download macOS AArch64 Build
-        uses: actions/download-artifact@main
-        with:
-           name: MacOS arm64
+           name: MacOS
            path: /home/runner
       
       - name: Download Android Build
@@ -106,7 +95,6 @@ jobs:
           files: |
             Windows
             Linux
-            MacOS x86_64
-            MacOS arm64
+            MacOS
             /home/runner/*.apk
             /home/runner/*.ipa
