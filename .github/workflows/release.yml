@@ -18,7 +18,7 @@ jobs:
             artifactName: Windows x64
             artifactPath: export\release\windows\bin\*
           - name: Windows x32
-            os: windows-2019
+            os: windows-2022
             buildArgs: windows
             artifactName: Windows x32
             artifactPath: export\32bit\windows\bin\*
