@@ -290,9 +290,24 @@ override function createPost()
             layer4b.x = layer4.x + layer4.width;
 		}
     }
+	
+    override function countdownTick(count:Countdown, num:Int)
+    {
+        switch(count)
+        {
+            case THREE:
+            case TWO:
+            case ONE:
+            case GO:
+              //  dad.playAnim('hey', true);
+              //  boyfriend.playAnim('hey', true);
+            case START:
+                if (songName == 'clouding') {
+                    songStarted = true; // Set flag to start fading out blackScreen
+                }
+        }
 
-        override function createPost() 
-     {
+		override function createPost() {
         super.createPost();
         if(ClientPrefs.data.shaders)
 		{
@@ -311,25 +326,3 @@ override function createPost()
         return coolShader;
     }
 }
-	
-    override function countdownTick(count:Countdown, num:Int)
-    {
-        switch(count)
-        {
-            case THREE:
-            case TWO:
-            case ONE:
-            case GO:
-              //  dad.playAnim('hey', true);
-              //  boyfriend.playAnim('hey', true);
-            case START:
-                if (songName == 'clouding') {
-                    songStarted = true; // Set flag to start fading out blackScreen
-                }
-        }
-    }
-}
-
-
-
-
