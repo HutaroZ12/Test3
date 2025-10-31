@@ -155,6 +155,23 @@ class Clouds extends BaseStage
 }
 
 	
+	  if (songName == 'radiant')
+	  {
+        if (curStep == 640) {
+            FlxTween.tween(blackScreen, {alpha: 0.75}, 2.5, {
+				ease: FlxEase.linear});
+		}				   
+		if (curStep == 896) {
+            FlxTween.tween(blackScreen, {alpha: 0.55}, 2.5, {
+				ease: FlxEase.expoIn,
+                onComplete: function(twn:FlxTween) {
+				                }
+            });
+        }
+    }
+}
+
+	
 override function createPost()
 {
 	layer4 = new BGSprite('stages/sky/layer4', -500, -300);
@@ -295,3 +312,4 @@ override function createPost()
         }
     }
 }
+
