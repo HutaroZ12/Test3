@@ -158,8 +158,8 @@ class Clouds extends BaseStage
 		if (curStep == 896) {
             FlxTween.tween(blackScreen, {alpha: 0.55}, 2.5, {
 				ease: FlxEase.expoOut});
-				}
-            });
+				}	  
+            }
         }
     }
 }
@@ -304,6 +304,7 @@ override function createPost()
         }
     }
 }
+
 
 
 
