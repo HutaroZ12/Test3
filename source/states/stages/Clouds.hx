@@ -183,11 +183,7 @@ override function createPost()
     layer3.alpha = 0.55;
     layer3.blend = ADD;
     add(layer3);
-}
-}
 
-function onCreatePost()
-{
     if (ClientPrefs.shaders) // verifica se os shaders estão ativados nas preferências
     {
         // Inicializa o shader "adjustColor"
@@ -326,6 +322,7 @@ function onCreatePost()
 		    }
 		}
 	}
+
 
 
 
