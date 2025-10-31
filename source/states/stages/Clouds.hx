@@ -54,7 +54,7 @@ class Clouds extends BaseStage
         nuvem2.scrollFactor.set(0.85, 0.85);
         add(nuvem2);
 
-        nuvem2b = new BGSprite('stages/sky/nuvem2', layer1.x + nuvem2.width, nuvem2.y);
+        nuvem2b = new BGSprite('stages/sky/nuvem2', muvem2.x + nuvem2.width, nuvem2.y);
         nuvem2b.scrollFactor.set(0.85, 0.85);
         add(nuvem2b);
         
@@ -62,7 +62,7 @@ class Clouds extends BaseStage
         nuvem3.scrollFactor.set(0.85, 0.85);
         add(nuvem3);
 
-        nuvem3b = new BGSprite('stages/sky/nuvem3', layer1.x + nuvem3.width, nuvem3.y);
+        nuvem3b = new BGSprite('stages/sky/nuvem3', nuvem3.x + nuvem3.width, nuvem3.y);
         nuvem3b.scrollFactor.set(0.85, 0.85);
         add(nuvem3b);
         
@@ -70,7 +70,7 @@ class Clouds extends BaseStage
         nuvem4.scrollFactor.set(0.85, 0.85);
         add(nuvem4);
 
-        nuvem4b = new BGSprite('stages/sky/nuvem4', layer1.x + nuvem4.width, nuvem4.y);
+        nuvem4b = new BGSprite('stages/sky/nuvem4', nuvem4.x + nuvem4.width, nuvem4.y);
         nuvem4b.scrollFactor.set(0.85, 0.85);
         add(nuvem4b);
         
@@ -78,7 +78,7 @@ class Clouds extends BaseStage
         nuvem5.scrollFactor.set(0.85, 0.85);
         add(nuvem5);
 
-        nuvem5b = new BGSprite('stages/sky/nuvem5', layer1.x + nuvem5.width, nuvem5.y);
+        nuvem5b = new BGSprite('stages/sky/nuvem5', nuvem5.x + nuvem5.width, nuvem5.y);
         nuvem5b.scrollFactor.set(0.85, 0.85);
         add(nuvem5b);
 
@@ -86,7 +86,7 @@ class Clouds extends BaseStage
         nuvem6.scrollFactor.set(0.85, 0.85);
         add(nuvem6);
 
-        nuvem6b = new BGSprite('stages/sky/nuvem6', layer1.x + nuvem6.width, nuvem6.y);
+        nuvem6b = new BGSprite('stages/sky/nuvem6', nuvem6.x + nuvem6.width, nuvem6.y);
         nuvem6b.scrollFactor.set(0.85, 0.85);
         add(nuvem6b);
         
@@ -265,23 +265,12 @@ override function createPost()
             case TWO:
             case ONE:
             case GO:
-                dad.playAnim('hey', true);
-                boyfriend.playAnim('hey', true);
+              //  dad.playAnim('hey', true);
+              //  boyfriend.playAnim('hey', true);
             case START:
                 if (songName == 'clouding') {
                     songStarted = true; // Set flag to start fading out blackScreen
                 }
         }
     }
-        }
-
-
-
-
-
-
-
-
-
-
-
+}
