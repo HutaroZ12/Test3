@@ -146,10 +146,8 @@ class Clouds extends BaseStage
         }
         if (curStep == 292) {    
             FlxTween.tween(songinfo, {x: -500}, 2.6, {
-				ease: FlxEase.expoIn,
-                onComplete: function(twn:FlxTween) {    
+				ease: FlxEase.expoIn});
                 }
-            });
         }
 	
 	  if (songName == 'radiant')
@@ -309,5 +307,6 @@ override function createPost()
         }
     }
 }
+
 
 
