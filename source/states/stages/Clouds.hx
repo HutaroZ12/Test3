@@ -94,7 +94,7 @@ class Clouds extends BaseStage
         casa.frames = Paths.getSparrowAtlas('stages/sky/Casa', -500, -300);
 	    casa.animation.addByPrefix('Casa', 'Casa', 5, true);
         casa.scrollFactor.set(0.9, 0.9);
-		rairum.antialiasing = ClientPrefs.data.antialiasing;
+		casa.antialiasing = ClientPrefs.data.antialiasing;
 		casa.animation.play('casa');
         add(casa);
 
@@ -276,5 +276,6 @@ override function createPost()
         }
     }
         }
+
 
 
