@@ -1,6 +1,7 @@
 package states.stages;
 
 import states.stages.objects.*;
+import shaders.AdjustColorShader;
 
 class Clouds extends BaseStage
 {
@@ -289,6 +290,27 @@ override function createPost()
             layer4b.x = layer4.x + layer4.width;
 		}
     }
+
+        override function createPost() 
+     {
+        super.createPost();
+        if(ClientPrefs.data.shaders)
+		{
+            gf.shader = makeCoolShader(0,16,0,0);
+            dad.shader = makeCoolShader(0,16,0,0);
+            boyfriend.shader = makeCoolShader(0,16,0,0);
+        }
+    }
+
+    function makeCoolShader(hue:Float,sat:Float,bright:Float,contrast:Float) {
+        var coolShader = new AdjustColorShader();
+        coolShader.hue = hue;
+        coolShader.saturation = sat;
+        coolShader.brightness = bright;
+        coolShader.contrast = contrast;
+        return coolShader;
+    }
+}
 	
     override function countdownTick(count:Countdown, num:Int)
     {
@@ -307,6 +329,7 @@ override function createPost()
         }
     }
 }
+
 
 
 
