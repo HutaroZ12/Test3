@@ -149,7 +149,10 @@ class Clouds extends BaseStage
                 ease: FlxEase.expoIn,
                 onComplete: function(twn:FlxTween) {           
 				}
-			}
+			});
+        }
+    }
+}
 
 	 override function stepHit()
 {
@@ -309,5 +312,6 @@ override function createPost()
         }
     }
 }
+
 
 
