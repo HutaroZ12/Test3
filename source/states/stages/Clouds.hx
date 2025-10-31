@@ -306,10 +306,9 @@ override function createPost()
                     songStarted = true; // Set flag to start fading out blackScreen
                 }
 		    }
-		}
-		}
 
-	    function createPost() {
+	    function createPost()
+		{
         super.createPost();
         if(ClientPrefs.data.shaders)
 		{
@@ -327,4 +326,6 @@ override function createPost()
         coolShader.contrast = contrast;
         return coolShader;
     }
+}
+	}
 }
