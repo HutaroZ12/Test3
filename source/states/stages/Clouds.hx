@@ -153,9 +153,6 @@ class Clouds extends BaseStage
         }
     }
 }
-
-	 override function stepHit()
-{
 	  if (songName == 'radiant')
     {
         if (curStep == 640) {
@@ -312,6 +309,7 @@ override function createPost()
         }
     }
 }
+
 
 
 
