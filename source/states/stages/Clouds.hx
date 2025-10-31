@@ -186,41 +186,37 @@ override function createPost()
 }
 }
 
-function createPost()
-		{
-        super.createPost();
-        if(ClientPrefs.data.shaders)
-		{
-            gf.shader = makeCoolShader(0,16,0,0);
-            dad.shader = makeCoolShader(0,16,0,0);
-            boyfriend.shader = makeCoolShader(0,16,0,0);
-        }
-    }
+function onCreatePost()
+{
+    if (ClientPrefs.shaders) // verifica se os shaders estão ativados nas preferências
+    {
+        // Inicializa o shader "adjustColor"
+        var shaderName = 'adjustColor';
 
-    function makeCoolShader(hue:Float,sat:Float,bright:Float,contrast:Float) {
-        var coolShader = new AdjustColorShader();
-        coolShader.hue = hue;
-        coolShader.saturation = sat;
-        coolShader.brightness = bright;
-        coolShader.contrast = contrast;
-        return coolShader;
+        // Cria instâncias do shader
+        boyfriend.shader = new CustomShader(shaderName);
+        dad.shader = new CustomShader(shaderName);
+        gf.shader = new CustomShader(shaderName);
+
+        // Define valores do shader do Boyfriend
+        boyfriend.shader.setFloat('hue', 0);
+        boyfriend.shader.setFloat('saturation', 16);
+        boyfriend.shader.setFloat('contrast', 0);
+        boyfriend.shader.setFloat('brightness', 0);
+
+        // Define valores do shader do Dad
+        dad.shader.setFloat('hue', 0);
+        dad.shader.setFloat('saturation', 16);
+        dad.shader.setFloat('contrast', 0);
+        dad.shader.setFloat('brightness', 0);
+
+        // Define valores do shader da Girlfriend
+        gf.shader.setFloat('hue', 0);
+        gf.shader.setFloat('saturation', 16);
+        gf.shader.setFloat('contrast', 0);
+        gf.shader.setFloat('brightness', 0);
     }
 }
-    
-    override function update(elapsed:Float)
-    {
-        super.update(elapsed);
-        parallaxUpdate(elapsed);
-
-        // Fade out blackScreen if song has started
-        if (songStarted && blackScreen != null) {
-            FlxTween.tween(blackScreen, {alpha: 0}, 25, {ease: FlxEase.linear, onComplete: function(twn:FlxTween) {
-                remove(blackScreen);
-                blackScreen = null;
-            }});
-            songStarted = false; // Reset flag after tweening
-        }
-    }
 
     function parallaxUpdate(elapsed:Float)
     {
@@ -330,6 +326,7 @@ function createPost()
 		    }
 		}
 	}
+
 
 
 
