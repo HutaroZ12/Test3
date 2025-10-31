@@ -93,7 +93,7 @@ class Clouds extends BaseStage
         casa = new BGSprite();
         casa.frames = Paths.getSparrowAtlas('stages/sky/Casa', -500, -300);
 	    casa.animation.addByPrefix('Casa', 'Casa', 5, true);
-        casa.scrollFactor.set(0.9 0.9);
+        casa.scrollFactor.set(0.9, 0.9);
         add(casa);
 
         layer1 = new BGSprite('stages/sky/layer1', -500, -300);
@@ -274,3 +274,4 @@ override function createPost()
         }
     }
         }
+
