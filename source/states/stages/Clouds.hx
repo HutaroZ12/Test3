@@ -143,8 +143,11 @@ class Clouds extends BaseStage
                 ease: FlxEase.expoIn,
                 onComplete: function(twn:FlxTween)
 				}
-			}
-	if (songName == 'radiant')
+		}
+						   
+      override function stepHit()
+{
+	  if (songName == 'radiant')
     {
         if (curStep == 640) {
             FlxTween.tween(blackScreen, {alpha: 0.75}, 2.5, {
@@ -155,7 +158,7 @@ class Clouds extends BaseStage
             FlxTween.tween(blackScreen, {alpha: 0.55}, 2.5, {
 				ease: FlxEase.linear, 
 				onComplete: function(twn:FlxTween) {
-                }
+				}
             });
         }
     }
@@ -320,6 +323,7 @@ override function createPost()
         }
     }
 }
+
 
 
 
