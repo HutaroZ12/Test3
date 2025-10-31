@@ -146,14 +146,15 @@ class Clouds extends BaseStage
         }
         if (curStep == 292) {    
             FlxTween.tween(songinfo, {x: -500}, 2.6, {
-                ease: FlxEase.expoOut});           
-				}	  
-}
+				ease: FlxEase.expoIn,
+                onComplete: function(twn:FlxTween) {    
+                }
             });
         }
     }
 }
 
+	
 override function createPost()
 {
 	layer4 = new BGSprite('stages/sky/layer4', -500, -300);
@@ -294,12 +295,3 @@ override function createPost()
         }
     }
 }
-
-
-
-
-
-
-
-
-
