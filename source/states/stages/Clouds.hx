@@ -94,7 +94,8 @@ class Clouds extends BaseStage
 		casa = new CasaBG(-500, -300);
 		casa.scrollFactor.set(0.9, 0.9);
 		add(casa);
-
+		}
+		
         layer1 = new BGSprite('stages/sky/layer1', -500, -300);
         layer1.scrollFactor.set(0.9, 0.9);
         add(layer1);
@@ -273,6 +274,7 @@ override function createPost()
         }
     }
         }
+
 
 
 
