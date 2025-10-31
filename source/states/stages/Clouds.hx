@@ -23,6 +23,8 @@ class Clouds extends BaseStage
     var nuvem5b:FlxSprite; // Segunda instância
     var nuvem6:FlxSprite;
     var nuvem6b:FlxSprite; // Segunda instância
+	var layer4:FlxSprite;
+    var layer4b:FlxSprite; // Segunda instância
     var movieBars:FlxSprite;
     var songinfo:FlxSprite;
     var blackScreen:FlxSprite; // Declare blackScreen at the class level
@@ -307,4 +309,5 @@ override function createPost()
         }
     }
 }
+
 
