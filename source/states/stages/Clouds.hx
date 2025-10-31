@@ -151,8 +151,7 @@ class Clouds extends BaseStage
     {
         if (curStep == 640) {
             FlxTween.tween(blackScreen, {alpha: 0.75}, 2.5, {
-				ease: FlxEase.linear, 
-				onComplete: function(twn:FlxTween) {
+				ease: FlxEase.linear});
 		}				   
 		if (curStep == 896) {
             FlxTween.tween(blackScreen, {alpha: 0.55}, 2.5, {
@@ -323,6 +322,7 @@ override function createPost()
         }
     }
 }
+
 
 
 
