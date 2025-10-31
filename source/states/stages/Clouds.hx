@@ -95,8 +95,8 @@ class Clouds extends BaseStage
 	    casa.animation.addByPrefix('Casa', 'Casa', 5, true);
         casa.scrollFactor.set(0.9, 0.9);
 		casa.antialiasing = ClientPrefs.data.antialiasing;
-		casa.x = -500;
-		casa.y = -300;
+		casa.x -= -500;
+		casa.y -= -300;
 		casa.animation.play('Casa');
         add(casa);
 
@@ -278,6 +278,7 @@ override function createPost()
         }
     }
         }
+
 
 
 
