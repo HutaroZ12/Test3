@@ -293,7 +293,8 @@ override function createPost()
     }
 }
 
-override function createPost() {
+override function createPost() 
+{
         super.createPost();
         if(ClientPrefs.data.shaders){
             gf.shader = makeCoolShader(0,16,0,0);
@@ -311,4 +312,3 @@ override function createPost() {
         return coolShader;
     }
 }
-
