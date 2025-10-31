@@ -54,7 +54,7 @@ class Clouds extends BaseStage
         nuvem2.scrollFactor.set(0.85, 0.85);
         add(nuvem2);
 
-        nuvem2b = new BGSprite('stages/sky/nuvem2', muvem2.x + nuvem2.width, nuvem2.y);
+        nuvem2b = new BGSprite('stages/sky/nuvem2', nuvem2.x + nuvem2.width, nuvem2.y);
         nuvem2b.scrollFactor.set(0.85, 0.85);
         add(nuvem2b);
         
@@ -274,3 +274,4 @@ override function createPost()
         }
     }
 }
+
