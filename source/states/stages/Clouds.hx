@@ -8,7 +8,7 @@ class Clouds extends BaseStage
     var layer1:FlxSprite;
     var layer2:FlxSprite;
     var layer3:FlxSprite;
-    var casa:FlxSprite;
+    var casa:CasaBG;
     var nuvem0:FlxSprite;
     var nuvem0b:FlxSprite; // Segunda instância
     var nuvem1:FlxSprite;
@@ -90,15 +90,10 @@ class Clouds extends BaseStage
         nuvem6b.scrollFactor.set(0.85, 0.85);
         add(nuvem6b);
         
-        casa = new BGSprite();
-        casa.frames = Paths.getSparrowAtlas('stages/sky/Casa');
-	    casa.animation.addByPrefix('Casa', 'Casa', 5, true);
-        casa.scrollFactor.set(0.9, 0.9);
-		casa.antialiasing = ClientPrefs.data.antialiasing;
-		casa.x -= -500;
-		casa.y -= -300;
-		casa.animation.play('Casa');
-        add(casa);
+        if(!ClientPrefs.data.lowQuality) 
+		casa = new BackgroundGirls(-500, -300);
+		casa.scrollFactor.set(0.9, 0.9);
+		add(casa);
 
         layer1 = new BGSprite('stages/sky/layer1', -500, -300);
         layer1.scrollFactor.set(0.9, 0.9);
@@ -278,6 +273,7 @@ override function createPost()
         }
     }
         }
+
 
 
 
