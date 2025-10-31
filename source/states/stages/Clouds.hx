@@ -1,7 +1,10 @@
 package states.stages;
 
 import states.stages.objects.*;
+import openfl.display.BlendMode;
+import shaders.flixel.system.FlxShader;
 import shaders.AdjustColorShader;
+
 
 class Clouds extends BaseStage
 {
@@ -322,6 +325,7 @@ override function createPost()
 		    }
 		}
 	}
+
 
 
 
