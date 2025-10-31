@@ -305,7 +305,9 @@ override function createPost()
                 if (songName == 'clouding') {
                     songStarted = true; // Set flag to start fading out blackScreen
                 }
-        }
+		    }
+		}
+		}
 
 		override function createPost() {
         super.createPost();
@@ -326,3 +328,4 @@ override function createPost()
         return coolShader;
     }
 }
+
