@@ -187,7 +187,6 @@ override function createPost()
     layer3.blend = ADD;
     add(layer3);
 
-    super.createPost();
         if(ClientPrefs.data.shaders)
 		{
             gf.shader = makeCoolShader(0,16,0,0);
@@ -314,3 +313,4 @@ override function createPost()
 		    }
 		}
 	}
+
