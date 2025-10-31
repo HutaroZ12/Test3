@@ -104,9 +104,6 @@ class Clouds extends BaseStage
         layer2.scrollFactor.set(1, 1);
         add(layer2);
 
-        layer3 = new BGSprite('stages/sky/layer3', -500, -300, 1, 1);
-        add(layer3);
-
         movieBars = new BGSprite('movieBars', 0, 0);
         movieBars.cameras = [camHUD];
         add(movieBars);
@@ -274,4 +271,5 @@ override function createPost()
         }
     }
 }
+
 
