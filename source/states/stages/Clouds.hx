@@ -184,6 +184,8 @@ override function createPost()
     layer3.blend = ADD;
     add(layer3);
 }
+}
+
 override function createPost()
 		{
         super.createPost();
@@ -328,5 +330,6 @@ override function createPost()
 		    }
 		}
 	}
+
 
 
