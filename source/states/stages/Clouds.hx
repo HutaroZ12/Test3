@@ -328,5 +328,3 @@ override function createPost()
         return coolShader;
     }
 }
-
-
