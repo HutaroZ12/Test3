@@ -90,7 +90,7 @@ class Clouds extends BaseStage
         nuvem6b.scrollFactor.set(0.85, 0.85);
         add(nuvem6b);
         
-        if(!ClientPrefs.data.lowQuality) 
+        if(!ClientPrefs.data.lowQuality);
 		casa = new BackgroundGirls(-500, -300);
 		casa.scrollFactor.set(0.9, 0.9);
 		add(casa);
@@ -273,6 +273,7 @@ override function createPost()
         }
     }
         }
+
 
 
 
