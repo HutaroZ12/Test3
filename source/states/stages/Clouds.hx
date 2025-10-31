@@ -186,7 +186,7 @@ override function createPost()
 }
 }
 
-override function createPost()
+function createPost()
 		{
         super.createPost();
         if(ClientPrefs.data.shaders)
@@ -330,6 +330,7 @@ override function createPost()
 		    }
 		}
 	}
+
 
 
 
