@@ -283,6 +283,26 @@ override function createPost()
 		}
     }
 
+	override function createPost() {
+        super.createPost();
+        if(VsliceOptions.SHADERS){
+            gf.shader = makeCoolShader(0,16,0,0);
+            dad.shader = makeCoolShader(0,16,0,0);
+            boyfriend.shader = makeCoolShader(0,16,0,0);
+            PicoCapableStage.instance?.applyABotShader(makeCoolShader(-9,0,-30,-4));
+        }
+    }
+
+    function makeCoolShader(hue:Float,sat:Float,bright:Float,contrast:Float) {
+        var coolShader = new AdjustColorShader();
+        coolShader.hue = hue;
+        coolShader.saturation = sat;
+        coolShader.brightness = bright;
+        coolShader.contrast = contrast;
+        return coolShader;
+    }
+		}
+	
     override function countdownTick(count:Countdown, num:Int)
     {
         switch(count)
@@ -300,6 +320,7 @@ override function createPost()
         }
     }
 }
+
 
 
 
