@@ -148,6 +148,7 @@ class Clouds extends BaseStage
             FlxTween.tween(songinfo, {x: -500}, 2.6, {
                 ease: FlxEase.expoOut});           
 				}	  
+}
             });
         }
     }
@@ -293,6 +294,7 @@ override function createPost()
         }
     }
 }
+
 
 
 
