@@ -91,11 +91,13 @@ class Clouds extends BaseStage
         add(nuvem6b);
         
         casa = new BGSprite();
-        casa.frames = Paths.getSparrowAtlas('stages/sky/Casa', -500, -300);
+        casa.frames = Paths.getSparrowAtlas('stages/sky/Casa');
 	    casa.animation.addByPrefix('Casa', 'Casa', 5, true);
         casa.scrollFactor.set(0.9, 0.9);
 		casa.antialiasing = ClientPrefs.data.antialiasing;
-		casa.animation.play('casa');
+		casa.x = -500;
+		casa.y = -300;
+		casa.animation.play('Casa');
         add(casa);
 
         layer1 = new BGSprite('stages/sky/layer1', -500, -300);
@@ -276,6 +278,7 @@ override function createPost()
         }
     }
         }
+
 
 
 
