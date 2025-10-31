@@ -292,23 +292,3 @@ override function createPost()
         }
     }
 }
-
-override function createPost() 
-{
-        super.createPost();
-        if(ClientPrefs.data.shaders){
-            gf.shader = makeCoolShader(0,16,0,0);
-            dad.shader = makeCoolShader(0,16,0,0);
-            boyfriend.shader = makeCoolShader(0,16,0,0);
-        }
-    }
-
-    function makeCoolShader(hue:Float,sat:Float,bright:Float,contrast:Float) {
-        var coolShader = new AdjustColorShader();
-        coolShader.hue = hue;
-        coolShader.saturation = sat;
-        coolShader.brightness = bright;
-        coolShader.contrast = contrast;
-        return coolShader;
-    }
-}
