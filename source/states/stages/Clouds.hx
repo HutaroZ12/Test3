@@ -285,11 +285,10 @@ override function createPost()
 
 	override function createPost() {
         super.createPost();
-        if(VsliceOptions.SHADERS){
+        if(ClientPrefs.data.shaders){
             gf.shader = makeCoolShader(0,16,0,0);
             dad.shader = makeCoolShader(0,16,0,0);
             boyfriend.shader = makeCoolShader(0,16,0,0);
-            PicoCapableStage.instance?.applyABotShader(makeCoolShader(-9,0,-30,-4));
         }
     }
 
@@ -320,6 +319,7 @@ override function createPost()
         }
     }
 }
+
 
 
 
