@@ -40,23 +40,7 @@ class Clouds extends BaseStage
         layer0.scrollFactor.set(0.84, 1);
         add(layer0);
 
-        nuvem0 = new BGSprite('stages/sky/nuvem0', -500, -300);
-        nuvem0.scrollFactor.set(0.95, 1);
-        add(nuvem0);
-
-        nuvem0b = new BGSprite('stages/sky/nuvem0', nuvem0.x + nuvem0.width, nuvem0.y);
-        nuvem0b.scrollFactor.set(0.95, 1);
-        add(nuvem0b);
-        
-        nuvem1 = new BGSprite('stages/sky/nuvem1', -500, -300);
-        nuvem1.scrollFactor.set(0.95, 1);
-        add(nuvem1);
-
-        nuvem1b = new BGSprite('stages/sky/nuvem1', nuvem1.x + nuvem1.width, nuvem1.y);
-        nuvem1b.scrollFactor.set(0.95, 1);
-        add(nuvem1b);
-        
-        nuvem2 = new BGSprite('stages/sky/nuvem2', -500, -300);
+		nuvem2 = new BGSprite('stages/sky/nuvem2', -500, -300);
         nuvem2.scrollFactor.set(0.95, 1);
         add(nuvem2);
 
@@ -79,7 +63,23 @@ class Clouds extends BaseStage
         nuvem4b = new BGSprite('stages/sky/nuvem4', nuvem4.x + nuvem4.width, nuvem4.y);
         nuvem4b.scrollFactor.set(0.95, 1);
         add(nuvem4b);
+		
+        nuvem0 = new BGSprite('stages/sky/nuvem0', -500, -300);
+        nuvem0.scrollFactor.set(0.95, 1);
+        add(nuvem0);
+
+        nuvem0b = new BGSprite('stages/sky/nuvem0', nuvem0.x + nuvem0.width, nuvem0.y);
+        nuvem0b.scrollFactor.set(0.95, 1);
+        add(nuvem0b);
         
+        nuvem1 = new BGSprite('stages/sky/nuvem1', -500, -300);
+        nuvem1.scrollFactor.set(0.95, 1);
+        add(nuvem1);
+
+        nuvem1b = new BGSprite('stages/sky/nuvem1', nuvem1.x + nuvem1.width, nuvem1.y);
+        nuvem1b.scrollFactor.set(0.95, 1);
+        add(nuvem1b);
+             
         nuvem5 = new BGSprite('stages/sky/nuvem5', -500, -300);
         nuvem5.scrollFactor.set(0.95, 1);
         add(nuvem5);
@@ -179,7 +179,7 @@ override function createPost()
 
 	layer4b = new BGSprite('stages/sky/layer4', layer4.x + layer4.width, layer4.y);
     layer4b.scrollFactor.set(1, 1);
-    add(layer4);
+    add(layer4b);
 	
     layer3 = new BGSprite('stages/sky/layer3', -500, -300);
     layer3.scrollFactor.set(1, 1);
@@ -312,6 +312,7 @@ override function createPost()
 		    }
 		}
 	}
+
 
 
 
