@@ -97,10 +97,10 @@ class Clouds extends BaseStage
         add(nuvem6b);
         
         casa = new FlxSprite(-500, -300);
-		casa.frames = Paths.getSparrowAtlas('stage/sky/Casa');
-		casa.animation.addByPrefix("Casa", "Casa", 5, true);
-		casa.scale.set(1, 1);
+		casa.frames = Paths.getSparrowAtlas('stages/sky/Casa');
+		casa.animation.addByPrefix("idle", "Casa", 5, true);
 		casa.animation.play('Casa');
+		casa.scale.set(0.99, 0.99);
 		add(casa);
 		
         layer1 = new BGSprite('stages/sky/layer1', -500, -300);
@@ -205,7 +205,7 @@ override function createPost()
     return coolShader;
 }
 
-    override function parallaxUpdate(elapsed:Float)
+    function parallaxUpdate(elapsed:Float)
     {
         // Atualizar a posição das camadas
         nuvem0.x -= 46 * elapsed; // Ajuste a velocidade conforme necessário
@@ -313,6 +313,7 @@ override function createPost()
 		    }
 		}
 	}
+
 
 
 
