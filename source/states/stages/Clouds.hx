@@ -205,7 +205,7 @@ override function createPost()
     return coolShader;
 }
 
-    override function update(elapsed:Float)
+    function update(elapsed:Float)
 {
     super.update(elapsed);
 
@@ -276,6 +276,7 @@ override function createPost()
 		    }
 		}
 	}
+
 
 
 
