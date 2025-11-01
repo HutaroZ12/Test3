@@ -98,8 +98,9 @@ class Clouds extends BaseStage
         
         casa = new FlxSprite(-500, -300);
 		casa.frames = Paths.getSparrowAtlas('stage/sky/Casa');
-		casa.animation.addByPrefix("idle", "Casa", 5);
+		casa.animation.addByPrefix("Casa", "Casa", 5, true);
 		casa.scale.set(1, 1);
+		songinfo.animation.play('Casa');
 		add(casa);
 		
         layer1 = new BGSprite('stages/sky/layer1', -500, -300);
@@ -312,6 +313,7 @@ override function createPost()
 		    }
 		}
 	}
+
 
 
 
