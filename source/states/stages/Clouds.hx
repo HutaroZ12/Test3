@@ -203,7 +203,6 @@ override function createPost()
     coolShader.contrast = contrast;
     return coolShader;
 }
-}
 
     function parallaxUpdate(elapsed:Float)
     {
@@ -313,5 +312,6 @@ override function createPost()
 		    }
 		}
 	}
+
 
 
