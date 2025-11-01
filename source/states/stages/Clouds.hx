@@ -205,7 +205,7 @@ override function createPost()
     return coolShader;
 }
 
-    function parallaxUpdate(elapsed:Float)
+    override function parallaxUpdate(elapsed:Float)
     {
         // Atualizar a posição das camadas
         nuvem0.x -= 46 * elapsed; // Ajuste a velocidade conforme necessário
@@ -313,6 +313,7 @@ override function createPost()
 		    }
 		}
 	}
+
 
 
 
