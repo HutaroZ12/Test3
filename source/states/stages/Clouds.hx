@@ -187,22 +187,22 @@ override function createPost()
     layer3.blend = ADD;
     add(layer3);
 
-        if(ClientPrefs.data.shaders)
-		{
-            gf.shader = makeCoolShader(0,16,0,0);
-            dad.shader = makeCoolShader(0,16,0,0);
-            boyfriend.shader = makeCoolShader(0,16,0,0);
-        }
+        if (ClientPrefs.data.shaders)
+{
+    gf.shader = makeCoolShader(0,16,0,0);
+    dad.shader = makeCoolShader(0,16,0,0);
+    boyfriend.shader = makeCoolShader(0,16,0,0);
+}
     }
 
     function makeCoolShader(hue:Float,sat:Float,bright:Float,contrast:Float) {
-        var coolShader = new AdjustColorShader();
-        coolShader.hue = hue;
-        coolShader.saturation = sat;
-        coolShader.brightness = bright;
-        coolShader.contrast = contrast;
-        return coolShader;
-    }
+    var coolShader = new AdjustColorShader();
+    coolShader.hue = hue;
+    coolShader.saturation = sat;
+    coolShader.brightness = bright;
+    coolShader.contrast = contrast;
+    return coolShader;
+}
 }
 
     function parallaxUpdate(elapsed:Float)
@@ -313,4 +313,5 @@ override function createPost()
 		    }
 		}
 	}
+
 
