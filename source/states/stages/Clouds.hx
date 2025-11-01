@@ -158,7 +158,7 @@ class Clouds extends BaseStage
 	  if (songName == 'radiant')
 	  {
         if (curStep == 640) {
-            FlxTween.tween(layer3, {alpha: 0.75}, 2.5, {
+            FlxTween.tween(layer3, {alpha: 0.9}, 2.5, {
 				ease: FlxEase.linear});
 		}				   
 		if (curStep == 896) {
@@ -275,6 +275,7 @@ override function createPost()
 		    }
 		}
 	}
+
 
 
 
