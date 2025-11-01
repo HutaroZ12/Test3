@@ -205,95 +205,58 @@ override function createPost()
     return coolShader;
 }
 
-    function parallaxUpdate(elapsed:Float)
-    {
-        // Atualizar a posição das camadas
-        nuvem0.x -= 46 * elapsed; // Ajuste a velocidade conforme necessário
-        nuvem0b.x -= 46 * elapsed; // Ajuste a velocidade conforme necessário
+    override function update(elapsed:Float)
+{
+    super.update(elapsed);
 
-        // Atualizar a posição das camadas
-        nuvem1.x -= 48 * elapsed; // Ajuste a velocidade conforme necessário
-        nuvem1b.x -= 48 * elapsed; // Ajuste a velocidade conforme necessário
-        
-// Atualizar a posição das camadas
-       nuvem2.x -= 26 * elapsed; // Ajuste a velocidade conforme necessário
-       nuvem2b.x -= 26 * elapsed; // Ajuste a velocidade conforme necessário
-       
-// Atualizar a posição das camadas
-        nuvem3.x -= 28 * elapsed; // Ajuste a velocidade conforme necessário
-        nuvem3b.x -= 28 * elapsed; // Ajuste a velocidade conforme necessário
-        
-// Atualizar a posição das camadas
-        nuvem4.x -= 30 * elapsed; // Ajuste a velocidade conforme necessário
-        nuvem4b.x -= 30 * elapsed; // Ajuste a velocidade conforme necessário
- 
-// Atualizar a posição das camadas
-        nuvem5.x -= 45 * elapsed; // Ajuste a velocidade conforme necessário
-        nuvem5b.x -= 45 * elapsed; // Ajuste a velocidade conforme necessário
-        
-// Atualizar a posição das camadas
-        nuvem6.x -= 50 * elapsed; // Ajuste a velocidade conforme necessário
-        nuvem6b.x -= 50 * elapsed; // Ajuste a velocidade conforme necessário
+    nuvem0.x -= 46 * elapsed;
+    nuvem0b.x -= 46 * elapsed;
 
-		layer4.x -= 35 * elapsed; // Ajuste a velocidade conforme necessário
-        layer4b.x -= 35 * elapsed; // Ajuste a velocidade conforme necessário
-        
-        // Reposicionar camadas para loop infinito
-        if (nuvem0.x + nuvem0.width <= 0){
-            nuvem0.x = nuvem0b.x + nuvem0b.width;
-        }
-        if (nuvem0b.x + nuvem0b.width <= 0){
-            nuvem0b.x = nuvem0.x + nuvem0.width;
-        }
+    nuvem1.x -= 48 * elapsed;
+    nuvem1b.x -= 48 * elapsed;
 
-        if (nuvem1.x + nuvem1.width <= 0){
-            nuvem1.x = nuvem1b.x + nuvem1b.width;
-        }
-        if (nuvem1b.x + nuvem1b.width <= 0){
-            nuvem1b.x = nuvem1.x + nuvem1.width;
-        }
-        
-        if (nuvem2.x + nuvem2.width <= 0){
-            nuvem2.x = nuvem2b.x + nuvem2b.width;
-        }
-        if (nuvem2b.x + nuvem2b.width <= 0){
-            nuvem2b.x = nuvem2.x + nuvem2.width;
-        }
-        
-        if (nuvem3.x + nuvem3.width <= 0){
-            nuvem3.x = nuvem3b.x + nuvem3b.width;
-        }
-        if (nuvem3b.x + nuvem3b.width <= 0){
-            nuvem3b.x = nuvem3.x + nuvem3.width;
-        }
-        
-        if (nuvem4.x + nuvem4.width <= 0){
-            nuvem4.x = nuvem4b.x + nuvem4b.width;
-        }
-        if (nuvem4b.x + nuvem4b.width <= 0){
-            nuvem4b.x = nuvem4.x + nuvem4.width;
-        }
-        
-        if (nuvem5.x + nuvem5.width <= 0){
-            nuvem5.x = nuvem5b.x + nuvem5b.width;
-        }
-        if (nuvem5b.x + nuvem5b.width <= 0){
-            nuvem5b.x = nuvem5.x + nuvem5.width;
-        }
-        
-        if (nuvem6.x + nuvem6.width <= 0){
-            nuvem6.x = nuvem6b.x + nuvem6b.width;
-        }
-        if (nuvem6b.x + nuvem6b.width <= 0){
-            nuvem6b.x = nuvem6.x + nuvem6.width;
-        }
+    nuvem2.x -= 26 * elapsed;
+    nuvem2b.x -= 26 * elapsed;
 
-		if (layer4.x + layer4.width <= 0){
-            layer4.x = layer4b.x + layer4b.width;
-        }
-        if (layer4b.x + layer4b.width <= 0){
-            layer4b.x = layer4.x + layer4.width;
-		}
+    nuvem3.x -= 28 * elapsed;
+    nuvem3b.x -= 28 * elapsed;
+
+    nuvem4.x -= 30 * elapsed;
+    nuvem4b.x -= 30 * elapsed;
+
+    nuvem5.x -= 45 * elapsed;
+    nuvem5b.x -= 45 * elapsed;
+
+    nuvem6.x -= 50 * elapsed;
+    nuvem6b.x -= 50 * elapsed;
+
+    layer4.x -= 35 * elapsed;
+    layer4b.x -= 35 * elapsed;
+
+    if (nuvem0.x + nuvem0.width <= 0) nuvem0.x = nuvem0b.x + nuvem0b.width;
+    if (nuvem0b.x + nuvem0b.width <= 0) nuvem0b.x = nuvem0.x + nuvem0.width;
+
+    if (nuvem1.x + nuvem1.width <= 0) nuvem1.x = nuvem1b.x + nuvem1b.width;
+    if (nuvem1b.x + nuvem1b.width <= 0) nuvem1b.x = nuvem1.x + nuvem1.width;
+
+    if (nuvem2.x + nuvem2.width <= 0) nuvem2.x = nuvem2b.x + nuvem2b.width;
+    if (nuvem2b.x + nuvem2b.width <= 0) nuvem2b.x = nuvem2.x + nuvem2.width;
+
+    if (nuvem3.x + nuvem3.width <= 0) nuvem3.x = nuvem3b.x + nuvem3b.width;
+    if (nuvem3b.x + nuvem3b.width <= 0) nuvem3b.x = nuvem3.x + nuvem3.width;
+
+    if (nuvem4.x + nuvem4.width <= 0) nuvem4.x = nuvem4b.x + nuvem4b.width;
+    if (nuvem4b.x + nuvem4b.width <= 0) nuvem4b.x = nuvem4.x + nuvem4.width;
+
+    if (nuvem5.x + nuvem5.width <= 0) nuvem5.x = nuvem5b.x + nuvem5b.width;
+    if (nuvem5b.x + nuvem5b.width <= 0) nuvem5b.x = nuvem5.x + nuvem5.width;
+
+    if (nuvem6.x + nuvem6.width <= 0) nuvem6.x = nuvem6b.x + nuvem6b.width;
+    if (nuvem6b.x + nuvem6b.width <= 0) nuvem6b.x = nuvem6.x + nuvem6.width;
+
+    if (layer4.x + layer4.width <= 0) layer4.x = layer4b.x + layer4b.width;
+    if (layer4b.x + layer4b.width <= 0) layer4b.x = layer4.x + layer4.width;
+}
     }
 
     override function countdownTick(count:Countdown, num:Int)
@@ -313,6 +276,7 @@ override function createPost()
 		    }
 		}
 	}
+
 
 
 
