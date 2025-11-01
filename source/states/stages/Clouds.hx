@@ -257,7 +257,6 @@ override function createPost()
     if (layer4.x + layer4.width <= 0) layer4.x = layer4b.x + layer4b.width;
     if (layer4b.x + layer4b.width <= 0) layer4b.x = layer4.x + layer4.width;
 }
-    }
 
     override function countdownTick(count:Countdown, num:Int)
     {
@@ -276,6 +275,7 @@ override function createPost()
 		    }
 		}
 	}
+
 
 
 
